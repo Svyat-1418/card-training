@@ -1,6 +1,19 @@
-# Getting Started with Create React App
+# CARD TRAINING
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Installed dependencies
+  + axios
+  + reduxjs/toolkit
+  + material UI + Icons
+  + react-redux
+  + eslint 
+  + prettier
+  
+## Git Flow
+
+#### 
+
 
 ## Available Scripts
 
