@@ -1,10 +1,5 @@
-import React from "react";
+import React from 'react'
 
 export const SignUp = () => {
-    return (
-        <div>
-            Sign Up content
-        </div>
-    )
-  
+  return <div>Sign Up content</div>
 }
