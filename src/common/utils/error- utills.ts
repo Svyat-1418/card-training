@@ -10,9 +10,9 @@ export const handleNetworkError = (
   const err = error as Error | AxiosError<{ error: string }>
   if (axios.isAxiosError(err)) {
     const errorMessage = err.response?.data ? err.response.data.error : err.message
-    dispatch(setAppErrorAC(errorMessage))
+    //dispatch(setAppErrorAC(errorMessage))
   } else {
-    dispatch(setAppErrorAC(`Native error ${err.message}`))
+    //dispatch(setAppErrorAC(`Native error ${err.message}`))
   }
 
   // const errorMessage = axios.isAxiosError(error)
