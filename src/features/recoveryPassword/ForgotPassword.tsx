@@ -17,7 +17,7 @@ export const ForgotPassword = () => {
       <h1>forgot pass page</h1>
       <form action="">
         <input type="email" onChange={(e) => setEmail(e.currentTarget.value)} />
-        <button onClick={sendEmailHandler}>sent instructions</button>
+        <button onClick={sendEmailHandler}>send instructions</button>
       </form>
     </div>
   )
