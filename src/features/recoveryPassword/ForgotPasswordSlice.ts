@@ -5,7 +5,7 @@ const initialState = {
   isSentSuccess: false,
 }
 
-export const resetPasswordSlice = createSlice({
+export const forgotPasswordSlice = createSlice({
   name: 'resetPassword',
   initialState,
   reducers: {
@@ -20,9 +20,9 @@ export const resetPasswordSlice = createSlice({
   // }
 })
 
-export const { sendEmail } = resetPasswordSlice.actions
+export const { sendEmail } = forgotPasswordSlice.actions
 
 export const SendEmailThunk = createAsyncThunk('resetPassword/sendEmail', async (email: string) => {
-  const response = await forgotPasswordApi.sendEmail(email)
-  return response
+  // const response = await forgotPasswordApi.sendEmail(email)
+  // return response
 })
