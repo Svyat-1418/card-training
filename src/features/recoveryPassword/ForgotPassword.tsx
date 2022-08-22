@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../common/hooks'
+import { SendEmailThunk } from './ForgotPasswordSlice'
 
 export const ForgotPassword = () => {
-  let currentEmail = useAppSelector((state) => state.resetPassword.email)
+  let currentEmail = useAppSelector((state) => state.forgotPassword.email)
   let [email, setEmail] = useState<string>('')
   let dispatch = useAppDispatch()
   console.log(currentEmail)
 
-  const sendEmailHandler = () => {}
+  const sendEmailHandler = () => {
+    dispatch(SendEmailThunk(email))
+  }
 
   return (
     <div>

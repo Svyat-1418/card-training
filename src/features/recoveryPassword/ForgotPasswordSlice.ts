@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import {forgotPasswordApi} from "../../common/config/apiConfig";
 
 const initialState = {
   email: '',
@@ -23,6 +24,6 @@ export const forgotPasswordSlice = createSlice({
 export const { sendEmail } = forgotPasswordSlice.actions
 
 export const SendEmailThunk = createAsyncThunk('resetPassword/sendEmail', async (email: string) => {
-  // const response = await forgotPasswordApi.sendEmail(email)
-  // return response
+  const response = await forgotPasswordApi.sendEmail(email)
+  return response
 })
