@@ -1,11 +1,11 @@
 import React from 'react'
 import './App.css'
-import { ForgotPassword } from '../features/recoveryPassword/ForgotPassword'
+import { Routing } from '../features/routing/Routing'
 
 function App() {
   return (
     <div className="App">
-      <ForgotPassword />
+      <Routing />
     </div>
   )
 }
