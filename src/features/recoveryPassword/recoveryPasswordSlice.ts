@@ -2,17 +2,23 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { forgotPasswordApi } from '../../common/config/apiConfig'
 import { ThunkType } from '../../app/store'
 import { AxiosResponse } from 'axios'
+import { RecoveryStatus } from '../../common/enums/PasswordRecoveryStatuses'
 
 export type sendEmailResponseType = {
   success: boolean
 }
+export type resetPasswordResponse = {
+  info: string
+}
 export type ForgotPasswordPageStateTypes = {
   email: string
-  isSendSuccess: boolean
+  isEmailSendSuccess: boolean
+  createNewPasswordStatus: number
 }
 const initialState: ForgotPasswordPageStateTypes = {
   email: '',
-  isSendSuccess: false,
+  isEmailSendSuccess: false,
+  createNewPasswordStatus: RecoveryStatus.Failed,
 }
 
 export const recoveryPasswordSlice = createSlice({
@@ -22,13 +28,20 @@ export const recoveryPasswordSlice = createSlice({
     sendEmail(state: ForgotPasswordPageStateTypes, action: PayloadAction<string>) {
       state.email = action.payload
     },
-    sendEmailStatus(state: ForgotPasswordPageStateTypes, action: PayloadAction<boolean>) {
-      state.isSendSuccess = action.payload
+    sendEmailStatusChange(state: ForgotPasswordPageStateTypes, action: PayloadAction<boolean>) {
+      state.isEmailSendSuccess = action.payload
+    },
+    createNewPasswordStatusChange(
+      state: ForgotPasswordPageStateTypes,
+      action: PayloadAction<number>
+    ) {
+      state.createNewPasswordStatus = action.payload
     },
   },
 })
 
-export const { sendEmail, sendEmailStatus } = recoveryPasswordSlice.actions
+export const { sendEmail, sendEmailStatusChange, createNewPasswordStatusChange } =
+  recoveryPasswordSlice.actions
 
 export const SendEmailThunk =
   (email: string): ThunkType =>
@@ -36,7 +49,18 @@ export const SendEmailThunk =
     forgotPasswordApi
       .sendEmail(email)
       .then((res: AxiosResponse<sendEmailResponseType>) => {
-        dispatch(sendEmailStatus(res.data.success))
+        dispatch(sendEmailStatusChange(res.data.success))
       })
       .catch((error) => console.log(error))
+  }
+
+export const setNewPasswordThunk =
+  (newPassword: string, token: string | undefined): ThunkType =>
+  (dispatch) => {
+    forgotPasswordApi
+      .setNewPassword(newPassword, token)
+      .then((res: AxiosResponse<resetPasswordResponse>) =>
+        dispatch(createNewPasswordStatusChange(RecoveryStatus.Success))
+      )
+      .catch((error) => dispatch(createNewPasswordStatusChange(RecoveryStatus.Failed)))
   }

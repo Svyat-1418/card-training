@@ -3,7 +3,7 @@ export enum Path {
   SingIn = '/sign-in',
   ForgotPassword = 'forgot-password',
   CheckEmail = 'check-email',
-  CreateNewPassword = 'create-new-password',
+  CreateNewPassword = 'create-new-password/*',
   PersonalInformation = 'personal-information',
   Page404 = '/404',
 }
