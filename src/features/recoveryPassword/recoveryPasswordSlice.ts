@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { forgotPasswordApi } from '../../common/config/apiConfig'
 import { ThunkType } from '../../app/store'
 import { AxiosResponse } from 'axios'
-import { RecoveryStatus } from '../../common/enums/PasswordRecoveryStatuses'
 
 export type sendEmailResponseType = {
   success: boolean
@@ -11,47 +10,68 @@ export type resetPasswordResponse = {
   info: string
 }
 export type ForgotPasswordPageStateTypes = {
-  email: string
+  recoveryEmail: string
   isEmailSendSuccess: boolean
-  createNewPasswordStatus: number
+  isNewPasswordAccepted: boolean
+  errorMessage: string
+  isFetching: boolean
 }
 const initialState: ForgotPasswordPageStateTypes = {
-  email: '',
+  recoveryEmail: '',
   isEmailSendSuccess: false,
-  createNewPasswordStatus: RecoveryStatus.Failed,
+  isNewPasswordAccepted: false,
+  errorMessage: '',
+  isFetching: false,
 }
 
 export const recoveryPasswordSlice = createSlice({
   name: 'resetPassword',
   initialState,
   reducers: {
-    sendEmail(state: ForgotPasswordPageStateTypes, action: PayloadAction<string>) {
-      state.email = action.payload
+    setRecoveryEmail(state: ForgotPasswordPageStateTypes, action: PayloadAction<string>) {
+      state.recoveryEmail = action.payload
     },
     sendEmailStatusChange(state: ForgotPasswordPageStateTypes, action: PayloadAction<boolean>) {
       state.isEmailSendSuccess = action.payload
     },
     createNewPasswordStatusChange(
       state: ForgotPasswordPageStateTypes,
-      action: PayloadAction<number>
+      action: PayloadAction<boolean>
     ) {
-      state.createNewPasswordStatus = action.payload
+      state.isNewPasswordAccepted = action.payload
+    },
+    setErrorMessage(state: ForgotPasswordPageStateTypes, action: PayloadAction<string>) {
+      state.errorMessage = action.payload
+    },
+    setIsFetching(state: ForgotPasswordPageStateTypes, action: PayloadAction<boolean>) {
+      state.isFetching = action.payload
     },
   },
 })
 
-export const { sendEmail, sendEmailStatusChange, createNewPasswordStatusChange } =
-  recoveryPasswordSlice.actions
+export const {
+  setRecoveryEmail,
+  sendEmailStatusChange,
+  createNewPasswordStatusChange,
+  setErrorMessage,
+  setIsFetching,
+} = recoveryPasswordSlice.actions
 
 export const SendEmailThunk =
   (email: string): ThunkType =>
   (dispatch) => {
+    dispatch(setRecoveryEmail(email))
+    dispatch(setIsFetching(true))
     forgotPasswordApi
       .sendEmail(email)
       .then((res: AxiosResponse<sendEmailResponseType>) => {
         dispatch(sendEmailStatusChange(res.data.success))
+        dispatch(setIsFetching(false))
       })
-      .catch((error) => console.log(error))
+      .catch((error) => {
+        dispatch(setErrorMessage(error.response.data.error))
+        dispatch(setIsFetching(false))
+      })
   }
 
 export const setNewPasswordThunk =
@@ -60,7 +80,9 @@ export const setNewPasswordThunk =
     forgotPasswordApi
       .setNewPassword(newPassword, token)
       .then((res: AxiosResponse<resetPasswordResponse>) =>
-        dispatch(createNewPasswordStatusChange(RecoveryStatus.Success))
+        dispatch(createNewPasswordStatusChange(true))
       )
-      .catch((error) => dispatch(createNewPasswordStatusChange(RecoveryStatus.Failed)))
+      .catch((error) => {
+        dispatch(createNewPasswordStatusChange(false))
+      })
   }
