@@ -6,6 +6,10 @@ import FormGroup from '@mui/material/FormGroup'
 import { useFormik } from 'formik'
 import { useAppDispatch } from '../../common/hooks'
 import { loginTC } from './signIn-slice'
+import { useSelector } from 'react-redux'
+import { RootStateType } from '../../app/store'
+import { Path } from '../../common/enums/Path'
+import { Navigate } from 'react-router-dom'
 
 type FormikErrorType = {
   email?: string
@@ -15,6 +19,8 @@ type FormikErrorType = {
 
 export const SignIn = () => {
   const dispatch = useAppDispatch()
+
+  const isLoggedIn = useSelector<RootStateType, boolean>((state) => state.login.isLoggedIn)
 
   const formik = useFormik({
     initialValues: {
@@ -42,6 +48,10 @@ export const SignIn = () => {
       formik.resetForm()
     },
   })
+
+  if (isLoggedIn) {
+    return <Navigate to={Path.PersonalInformation} />
+  }
 
   return (
     <Grid container justifyContent={'center'}>
