@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
@@ -11,11 +11,15 @@ import Paper from '@mui/material/Paper'
 
 import LayersIcon from '@mui/icons-material/Layers'
 import Logout from '@mui/icons-material/Logout'
-import CreateIcon from '@mui/icons-material/Create'
 
 import anonymousUserAva from './../../assets/images/user-anonymous-useravatar.jpg'
 
+import { EditableText } from '../../common/components/EditableText'
+
 export const PersonalInformation = () => {
+  const [tempUserNameText, setTempUserNameText] = useState('User_Name')
+  const [tempUserEmailText, setTempUserEmailText] = useState('useremail@gmail.com')
+
   return (
     <Grid height={'100vh'} container justifyContent={'center'} alignItems={'center'}>
       <Grid item>
@@ -45,19 +49,21 @@ export const PersonalInformation = () => {
             />
 
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                User Name
-                <IconButton>
-                  <CreateIcon />
-                </IconButton>
-              </Typography>
+              <EditableText
+                text={tempUserNameText}
+                variant={'h5'}
+                newTextCallback={(newText: string) => {
+                  setTempUserNameText(newText)
+                }}
+              />
 
-              <Typography variant="body1" color="text.secondary">
-                useremail@gmail.com
-                <IconButton>
-                  <CreateIcon />
-                </IconButton>
-              </Typography>
+              <EditableText
+                text={tempUserEmailText}
+                variant={'body1'}
+                newTextCallback={(newText: string) => {
+                  setTempUserEmailText(newText)
+                }}
+              />
             </CardContent>
           </Card>
         </Paper>
