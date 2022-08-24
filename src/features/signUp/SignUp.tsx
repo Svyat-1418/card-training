@@ -3,9 +3,11 @@ import { useAppDispatch } from '../../common/hooks'
 import { useFormik } from 'formik'
 import { Button, TextField } from '@mui/material'
 import FormGroup from '@mui/material/FormGroup'
-import { NavLink } from 'react-router-dom'
+import { Navigate, NavLink } from 'react-router-dom'
 import { Path } from '../../common/enums/Path'
 import { registerTC } from './singnUp-slice'
+import { useSelector } from 'react-redux'
+import { RootStateType } from '../../app/store'
 
 type FormikErrorType = {
   email?: string
@@ -15,6 +17,8 @@ type FormikErrorType = {
 
 export const SignUp = () => {
   const dispatch = useAppDispatch()
+
+  const isRegistered = useSelector<RootStateType, boolean>((state) => state.registration.isSignedUp)
 
   const formik = useFormik({
     initialValues: {
@@ -47,6 +51,10 @@ export const SignUp = () => {
       formik.resetForm()
     },
   })
+
+  if (isRegistered) {
+    return <Navigate to={Path.SingIn} />
+  }
 
   return (
     <div>
