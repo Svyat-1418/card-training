@@ -4,8 +4,10 @@ import { Path } from '../../common/enums/Path'
 import { SignUp } from '../signUp/SignUp'
 import { SignIn } from '../signIn/SignIn'
 import { PersonalInformation } from '../personalInformation/PersonalInformation'
-import { ForgotPassword } from '../recoveryPassword/ForgotPassword'
+import { ForgotPassword } from '../recoveryPassword/ForgotPasswordPage/ForgotPassword'
 import { Layout } from './Layout'
+import { CreateNewPassword } from '../recoveryPassword/CreateNewPasswordPage/CreateNewPassword'
+import { CheckEmail } from '../recoveryPassword/CheckEmailPage/CheckEmail'
 
 export const Routing = () => {
   return (
@@ -15,8 +17,8 @@ export const Routing = () => {
         <Route path={Path.SingIn} element={<SignIn />} />
         <Route path={Path.PersonalInformation} element={<PersonalInformation />} />
         <Route path={Path.ForgotPassword} element={<ForgotPassword />} />
-        <Route path={Path.CheckEmail} element={<></>} />
-        <Route path={Path.CreateNewPassword} element={<></>} />
+        <Route path={Path.CheckEmail} element={<CheckEmail />} />
+        <Route path={Path.CreateNewPassword} element={<CreateNewPassword />} />
         <Route path={Path.Page404} element={<></>} />
       </Route>
     </Routes>
