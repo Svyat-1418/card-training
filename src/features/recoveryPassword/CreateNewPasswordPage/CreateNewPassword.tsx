@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useState } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks'
-import { SendEmailThunk, setNewPasswordThunk } from '../recoveryPasswordSlice'
+import { setNewPasswordThunk } from '../recoveryPasswordSlice'
 import { Path } from '../../../common/enums/Path'
 import styles from '../RecoveryPassword.module.css'
-import {Button, LinearProgress, TextField} from '@mui/material'
+import { Button, LinearProgress, TextField } from '@mui/material'
 
 export const CreateNewPassword = () => {
   let isFetching = useAppSelector((state) => state.forgotPassword.isFetching)
@@ -26,7 +26,7 @@ export const CreateNewPassword = () => {
     setRepeatNewPassword(e.currentTarget.value)
   }
   const setNewPasswordHandler = () => {
-    if (token) {
+    if (token && newPassword === repeatNewPassword) {
       dispatch(setNewPasswordThunk(newPassword, token['*']))
     }
   }
@@ -57,8 +57,7 @@ export const CreateNewPassword = () => {
       <Button variant="text" onClick={setNewPasswordHandler}>
         change password
       </Button>
-
-      {/*<button onClick={setNewPasswordHandler}>set new password</button>*/}
+      {newPassword !== repeatNewPassword && <div>passwords doesnt match</div>}
       {isNewPasswordAccepted && <Navigate to={Path.PersonalInformation} />}
     </div>
   )

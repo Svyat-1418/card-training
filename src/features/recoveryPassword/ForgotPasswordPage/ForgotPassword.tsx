@@ -8,22 +8,33 @@ import styles from '../RecoveryPassword.module.css'
 
 export const ForgotPassword = () => {
   let isEmailSendSuccess = useAppSelector((state) => state.forgotPassword.isEmailSendSuccess)
-  let errorMessage = useAppSelector((state) => state.forgotPassword.errorMessage)
+  let errorMessageFromApi = useAppSelector((state) => state.forgotPassword.errorMessage)
   let isFetching = useAppSelector((state) => state.forgotPassword.isFetching)
   let [email, setEmail] = useState<string>('')
+  let [errorMessage, setErrorMessage] = useState<string>('')
   let dispatch = useAppDispatch()
-
-  console.log(isEmailSendSuccess)
 
   const onChangeTextFieldHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setEmail(e.currentTarget.value)
   }
-  const sendEmailClickHandler = () => {
-    dispatch(SendEmailThunk(email))
-  }
-  const sendEmailKeyHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+  const sendEmailValidation = () => {
+    if (isFetching) {
+      setErrorMessage('')
+    }
+    if (email) {
       dispatch(SendEmailThunk(email))
+      setErrorMessage(errorMessageFromApi)
+    } else {
+      setErrorMessage('empty input')
+    }
+  }
+  const sendEmailClickHandler = () => {
+    sendEmailValidation()
+  }
+  //@ts-ignore
+  const sendEmailKeyHandler = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter') {
+      sendEmailValidation()
     }
   }
 
