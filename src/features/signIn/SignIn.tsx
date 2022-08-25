@@ -8,7 +8,6 @@ import { useAppDispatch } from '../../common/hooks'
 import { loginTC } from './signIn-slice'
 import { useSelector } from 'react-redux'
 import { RootStateType } from '../../app/store'
-import { Path } from '../../common/enums/Path'
 import { Navigate } from 'react-router-dom'
 
 type FormikErrorType = {
@@ -50,7 +49,7 @@ export const SignIn = () => {
   })
 
   if (isLoggedIn) {
-    return <Navigate to={Path.PersonalInformation} />
+    return <Navigate to={'/personal-information'} />
   }
 
   return (
