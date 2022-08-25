@@ -15,10 +15,19 @@ import Logout from '@mui/icons-material/Logout'
 import anonymousUserAva from './../../assets/images/user-anonymous-useravatar.jpg'
 
 import { EditableText } from '../../common/components/EditableText'
+import { useAppSelector } from '../../common/hooks'
+import { Navigate } from 'react-router-dom'
+import { Path } from '../../common/enums/Path'
 
 export const PersonalInformation = () => {
   const [tempUserNameText, setTempUserNameText] = useState('User_Name')
   const [tempUserEmailText, setTempUserEmailText] = useState('useremail@gmail.com')
+
+  const isLoggedIn = useAppSelector((state) => state.login.isLoggedIn)
+
+  if (!isLoggedIn) {
+    return <Navigate to={Path.SingIn} />
+  }
 
   return (
     <Grid height={'100vh'} container justifyContent={'center'} alignItems={'center'}>
