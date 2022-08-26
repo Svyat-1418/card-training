@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { authAPI, MeResponseType } from '../features/auth/authApi'
-import { handleNetworkError } from '../common/utils/error-utills'
+import { handleNetworkError } from '../common/'
 
 export const initializeApp = createAsyncThunk(
   'app/initializeApp',
