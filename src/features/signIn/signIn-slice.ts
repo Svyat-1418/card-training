@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Dispatch } from 'redux'
 import { loginAPI, LoginParamsType } from './signIn-api'
-import { handleNetworkError } from '../../common/utils/error- utills'
+import { handleNetworkError } from '../../common/utils/errorUtil'
 import { authAPI } from '../auth/authApi'
 
 const initialState = {
