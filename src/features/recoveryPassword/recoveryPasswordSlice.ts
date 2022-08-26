@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { forgotPasswordApi } from '../../common/config/apiConfig'
+import { forgotPasswordApi } from './recoveryPasswordApi'
 import { ThunkType } from '../../app/store'
 import { AxiosResponse } from 'axios'
 
