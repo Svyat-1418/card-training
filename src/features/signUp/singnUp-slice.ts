@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Dispatch } from 'redux'
-import { handleNetworkError } from '../../common/utils/error- utills'
+import { handleNetworkError } from '../../common/utils/error-utills'
 import { RegisterParamsType, signUpApi } from './signUp-api'
 
 const initialState = {
