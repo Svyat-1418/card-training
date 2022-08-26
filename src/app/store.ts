@@ -9,11 +9,13 @@ import { loginReducer } from '../features/signIn/signIn-slice'
 import { registrationReducer } from '../features/signUp/singnUp-slice'
 import { recoveryPasswordSlice } from '../features/recoveryPassword/recoveryPasswordSlice'
 import thunk from 'redux-thunk'
+import { appReducer } from './appSlice'
 
 const RootReducer = combineReducers({
   login: loginReducer,
   registration: registrationReducer,
   forgotPassword: recoveryPasswordSlice.reducer,
+  app: appReducer,
 })
 
 export const store = configureStore({

@@ -14,4 +14,6 @@ const appSlice = createSlice({
   reducers: {},
 })
 
+export const appReducer = appSlice.reducer
+
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
