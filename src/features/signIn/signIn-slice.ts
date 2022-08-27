@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Dispatch } from 'redux'
 import { loginAPI, LoginParamsType } from './signIn-api'
 import { handleNetworkError } from '../../common/utils/errorUtil'
+import { authAPI } from '../auth/authApi'
 
 const initialState = {
   isLoggedIn: false,
@@ -27,6 +28,18 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch) => {
     .then((res) => {
       if (res.status === 200) {
         dispatch(setIsLoggedInAC({ value: true }))
+      }
+    })
+    .catch((error) => {
+      handleNetworkError(error, dispatch)
+    })
+}
+export const logoutTC = () => (dispatch: Dispatch) => {
+  authAPI
+    .logout()
+    .then((res) => {
+      if (res.status === 200) {
+        dispatch(setIsLoggedInAC({ value: false }))
       }
     })
     .catch((error) => {
