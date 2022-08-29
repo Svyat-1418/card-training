@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Table from '@mui/material/Table'
 import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
@@ -6,6 +6,8 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import TableBody from '@mui/material/TableBody'
 import Paper from '@mui/material/Paper'
+import { getPackListThunk } from './packListSlice'
+import {useAppDispatch} from "../../common/hooks";
 
 export const PackListPage = () => {
   function createData(name: string, calories: number, fat: number, carbs: number, protein: number) {
@@ -19,6 +21,11 @@ export const PackListPage = () => {
     createData('Cupcake', 305, 3.7, 67, 4.3),
     createData('Gingerbread', 356, 16.0, 49, 3.9),
   ]
+
+  let dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(getPackListThunk())
+  }, [])
 
   return (
     <TableContainer component={Paper}>

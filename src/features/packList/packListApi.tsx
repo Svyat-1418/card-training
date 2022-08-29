@@ -7,7 +7,7 @@ export const instance = axios.create({
 })
 
 export const packListApi = {
-  getPackageList() {
-    return instance.get('/cards/pack')
+  getPackList() {
+    return instance.get('cards/pack')
   },
 }
