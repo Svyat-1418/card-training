@@ -12,4 +12,10 @@ export const cardPacksApi = {
     let pageCount = 8
     return instance.get(`cards/pack?pageCount=${pageCount}`)
   },
+  createPack(name: string) {
+    return instance.post(`cards/pack`, { name })
+  },
+  editPack(id: string, name: string) {
+    return instance.put(`cards/pack`, { id, name })
+  },
 }
