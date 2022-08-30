@@ -6,13 +6,16 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import TableBody from '@mui/material/TableBody'
 import Paper from '@mui/material/Paper'
-import { getPackListThunk } from './packListSlice'
-import { useAppDispatch } from '../../common/hooks'
+import { getCardPacksThunk } from './cardPacksSlice'
+import { useAppDispatch, useAppSelector } from '../../common/hooks'
 
-export const PackListPage = () => {
+export const CardPacksPage = () => {
   function createData(name: string, calories: number, fat: number, carbs: number, protein: number) {
     return { name, calories, fat, carbs, protein }
   }
+
+  let cardPacks = useAppSelector((state) => state.cardPacks.cardPacks)
+  console.log(cardPacks)
 
   const rows = [
     createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
@@ -24,7 +27,7 @@ export const PackListPage = () => {
 
   let dispatch = useAppDispatch()
   useEffect(() => {
-    dispatch(getPackListThunk())
+    dispatch(getCardPacksThunk())
   }, [])
 
   return (
