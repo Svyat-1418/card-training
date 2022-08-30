@@ -18,7 +18,10 @@ export const packListSlice = createSlice({
 export const {} = packListSlice.actions
 
 export const getPackListThunk = (): ThunkType => (dispatch) => {
-  packListApi.getPackList().then((res) => console.log(res))
+  packListApi
+    .getPackList()
+    .then((res) => console.log(res))
+    .catch((error) => console.log(error))
 }
 // export const setNewPasswordThunk =
 //     (newPassword: string, token: string | undefined): ThunkType =>
