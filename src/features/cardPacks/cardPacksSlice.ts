@@ -7,7 +7,7 @@ export type CardPacksType = {
   _id: string
   user_id: string
   name: string
-  cardsCount: number
+  cardsCount: string
   created: string
   updated: string
 }
