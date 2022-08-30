@@ -11,9 +11,7 @@ export type CardPacksType = {
   created: string
   updated: string
 }
-export type CrudActions = {
-
-}
+export type CrudActions = {}
 export type CardPacksResponseType = {
   cardPacks: CardPacksType[]
   cardPacksTotalCount: number
@@ -55,4 +53,13 @@ export const getCardPacksThunk = (): ThunkType => (dispatch) => {
     })
     .catch((error) => console.log(error))
 }
-
+export const editCardPackThunk =
+  (id: string, name: string): ThunkType =>
+  (dispatch) => {
+    cardPacksApi
+      .editPack(id, name)
+      .then((res) => {
+        dispatch(getCardPacksThunk())
+      })
+      .catch((error) => console.log(error))
+  }
