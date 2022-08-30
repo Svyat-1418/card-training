@@ -9,6 +9,7 @@ import { instance } from '../../common/config/apiConfig'
 
 export const cardPacksApi = {
   getPackList() {
-    return instance.get('cards/pack')
+    let pageCount = 8
+    return instance.get(`cards/pack?pageCount=${pageCount}`)
   },
 }

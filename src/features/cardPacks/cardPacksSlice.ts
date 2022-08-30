@@ -38,9 +38,6 @@ export const cardPacksSlice = createSlice({
     setCardPacksList(state: CardPacksStateTypes, action: PayloadAction<CardPacksType[]>) {
       state.cardPacks = action.payload
     },
-    // setRecoveryEmail(state: ForgotPasswordPageStateTypes, action: PayloadAction<string>) {
-    //     state.recoveryEmail = action.payload
-    // },
   },
 })
 
@@ -56,15 +53,3 @@ export const getCardPacksThunk = (): ThunkType => (dispatch) => {
     .catch((error) => console.log(error))
 }
 
-//  export const setNewPasswordThunk =
-//     (newPassword: string, token: string | undefined): ThunkType =>
-//         (dispatch) => {
-//             forgotPasswordApi
-//                 .setNewPassword(newPassword, token)
-//                 .then((res: AxiosResponse<resetPasswordResponse>) =>
-//                     dispatch(createNewPasswordStatusChange(true))
-//                 )
-//                 .catch((error) => {
-//                     dispatch(createNewPasswordStatusChange(false))
-//                 })
-//         }
