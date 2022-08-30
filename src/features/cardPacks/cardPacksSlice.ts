@@ -11,6 +11,9 @@ export type CardPacksType = {
   created: string
   updated: string
 }
+export type CrudActions = {
+
+}
 export type CardPacksResponseType = {
   cardPacks: CardPacksType[]
   cardPacksTotalCount: number

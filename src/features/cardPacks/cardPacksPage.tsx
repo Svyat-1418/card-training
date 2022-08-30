@@ -8,6 +8,7 @@ import TableBody from '@mui/material/TableBody'
 import Paper from '@mui/material/Paper'
 import { CardPacksType, getCardPacksThunk } from './cardPacksSlice'
 import { useAppDispatch, useAppSelector } from '../../common/hooks'
+import { Actions } from './ActionsComponent'
 
 export const CardPacksPage = () => {
   let cardPacks: CardPacksType[] = useAppSelector((state) => state.cardPacks.cardPacks)
@@ -37,7 +38,9 @@ export const CardPacksPage = () => {
               <TableCell align="right">{pack.cardsCount}</TableCell>
               <TableCell align="right">{pack.updated}</TableCell>
               <TableCell align="right">{pack.created}</TableCell>
-              <TableCell align="right">Actions</TableCell>
+              <TableCell align="right">
+                <Actions />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
