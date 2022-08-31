@@ -12,7 +12,7 @@ import Paper from '@mui/material/Paper'
 import LayersIcon from '@mui/icons-material/Layers'
 import Logout from '@mui/icons-material/Logout'
 
-import anonymousUserAva from './../../assets/images/user-anonymous-useravatar.jpg'
+import anonymousUserAva from '../../assets/images/userAnonymousAvatar.jpg'
 
 import { EditableText } from '../../common/components/EditableText'
 import { useAppSelector } from '../../common/hooks'

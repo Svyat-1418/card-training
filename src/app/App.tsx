@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../common/hooks'
 import { initializeApp } from './appSlice'
 import { CircularProgress } from '@mui/material'
 import Box from '@mui/material/Box'
+import { ErrorSnackbar } from '../common/components/ErrorSnackbar'
 
 function App() {
   const dispatch = useAppDispatch()
