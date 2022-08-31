@@ -34,20 +34,17 @@ const appSlice = createSlice({
   },
 })
 
-export const initializeApp = createAsyncThunk(
-  'app/initializeApp',
-  async (_, { dispatch }) => {
-    try {
-      const res = await authAPI.me()
-      dispatch(setIsLoggedInAC({ value: true }))
-      return { userData: res.data }
-    } catch (err: any) {
-      handleNetworkError(err, dispatch)
-    } finally {
-      dispatch(setIsInitialized)
-    }
+export const initializeApp = createAsyncThunk('app/initializeApp', async (_, { dispatch }) => {
+  try {
+    const res = await authAPI.me()
+    dispatch(setIsLoggedInAC({ value: true }))
+    return { userData: res.data }
+  } catch (err: any) {
+    handleNetworkError(err, dispatch)
+  } finally {
+    dispatch(setIsInitialized)
   }
-)
+})
 
 export const { setStatus, setError, setIsInitialized } = appSlice.actions
 export const appReducer = appSlice.reducer
