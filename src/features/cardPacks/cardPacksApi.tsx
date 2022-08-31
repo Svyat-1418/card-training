@@ -9,13 +9,13 @@ import { instance } from '../../common/config/apiConfig'
 
 export const cardPacksApi = {
   getPackList() {
-    let pageCount = 8
+    let pageCount = 5
     return instance.get(`cards/pack?pageCount=${pageCount}`)
   },
   createPack(name: string) {
     return instance.post(`cards/pack`, { name })
   },
-  editPack(id: string, name: string) {
-    return instance.put(`cards/pack`, { id, name })
+  editPack(_id: string, name: string) {
+    return instance.put(`cards/pack`, { cardsPack: { _id, name } })
   },
 }

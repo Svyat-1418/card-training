@@ -27,9 +27,11 @@ export type CardPacksResponseType = {
 
 export type CardPacksStateTypes = {
   cardPacks: CardPacksType[]
+  editMode: boolean
 }
 const initialState: CardPacksStateTypes = {
   cardPacks: [],
+  editMode: false,
 }
 
 export const cardPacksSlice = createSlice({
@@ -38,6 +40,9 @@ export const cardPacksSlice = createSlice({
   reducers: {
     setCardPacksList(state: CardPacksStateTypes, action: PayloadAction<CardPacksType[]>) {
       state.cardPacks = action.payload
+    },
+    setEditMode(state: CardPacksStateTypes, action: PayloadAction<boolean>) {
+      state.editMode = action.payload
     },
   },
 })
@@ -60,6 +65,17 @@ export const editCardPackThunk =
       .editPack(id, name)
       .then((res) => {
         dispatch(getCardPacksThunk())
+      })
+      .catch((error) => console.log(error))
+  }
+export const createCardPackThunk =
+  (name: string): ThunkType =>
+  (dispatch) => {
+    cardPacksApi
+      .createPack(name)
+      .then((res) => {
+        console.log(res)
+        // dispatch(getCardPacksThunk())
       })
       .catch((error) => console.log(error))
   }
