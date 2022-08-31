@@ -1,11 +1,14 @@
 import React from 'react'
+
 import { Outlet } from 'react-router-dom'
-import { AppBarComponent } from '../app-bar/App-bar'
+import { Header } from '../../components/Header/Header'
+import { ErrorSnackbar } from '../../common/components/ErrorSnackbar'
 
 export const Layout = () => {
   return (
     <>
-      <AppBarComponent />
+      <Header />
+      <ErrorSnackbar />
       <Outlet />
     </>
   )

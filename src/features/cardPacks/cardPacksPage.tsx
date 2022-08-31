@@ -17,9 +17,9 @@ export const CardPacksPage = () => {
   useEffect(() => {
     dispatch(getCardPacksThunk())
   }, [])
-  // let [editModeId, setEditModeId] = useState<string | null>(null)
+  let [editModeId, setEditModeId] = useState<string>('')
 
-  const setEditModeIDCb = (id: string) => {
+  const setEditModeIdCb = (id: string) => {
     setEditModeId(id)
   }
 
@@ -40,7 +40,11 @@ export const CardPacksPage = () => {
             <TableRow key={pack._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell component="th" scope="row">
                 {pack._id === editModeId ? (
-                  <EditablePackName _id={pack._id} startName={pack.name}/>
+                  <EditablePackName
+                    _id={pack._id}
+                    startName={pack.name}
+                    setEditModeCb={setEditModeIdCb}
+                  />
                 ) : (
                   `${pack.name}`
                 )}
@@ -49,7 +53,7 @@ export const CardPacksPage = () => {
               <TableCell align="right">{pack.updated}</TableCell>
               <TableCell align="right">{pack.created}</TableCell>
               <TableCell align="right">
-                <Actions currentName={pack.name} id={pack._id} setEditModeCb={setEditModeIDCb} />
+                <Actions currentName={pack.name} id={pack._id} setEditModeCb={setEditModeIdCb} />
               </TableCell>
             </TableRow>
           ))}

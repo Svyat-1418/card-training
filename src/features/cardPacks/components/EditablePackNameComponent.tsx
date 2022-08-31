@@ -6,19 +6,38 @@ import { editCardPackThunk } from '../cardPacksSlice'
 type EditablePackNamePropsTypes = {
   _id: string
   startName: string
+  setEditModeCb: (id: string) => void
 }
-export const EditablePackName: React.FC<EditablePackNamePropsTypes> = ({ _id, startName }) => {
+
+export const EditablePackName: React.FC<EditablePackNamePropsTypes> = ({
+  _id,
+  startName,
+  setEditModeCb,
+}) => {
   let dispatch = useAppDispatch()
   const [newText, setNewText] = useState(startName)
+  const [localError, setLocalError] = useState('')
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setNewText(event.currentTarget.value)
   }
 
+  const editPackNameValidation = () => {
+    if (newText) {
+      dispatch(editCardPackThunk(_id, newText))
+      setEditModeCb('')
+    } else {
+      setLocalError('empty input')
+    }
+  }
+
   const handlePressKeyEnter = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      dispatch(editCardPackThunk(_id, newText))
+      editPackNameValidation()
     }
+  }
+  const onBlurHandler = () => {
+    editPackNameValidation()
   }
 
   return (
@@ -30,9 +49,9 @@ export const EditablePackName: React.FC<EditablePackNamePropsTypes> = ({ _id, st
         autoFocus
         onChange={handleChange}
         onKeyPress={handlePressKeyEnter}
-        // onBlur={onBlurHandler}
-        // error={!!localError}
-        // helperText={localError}
+        onBlur={onBlurHandler}
+        error={!!localError}
+        helperText={localError}
       />
     </div>
   )
