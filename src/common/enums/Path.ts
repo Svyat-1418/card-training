@@ -6,5 +6,5 @@ export enum Path {
   CreateNewPassword = '/create-new-password/*',
   PersonalInformation = '/personal-information',
   Page404 = '/404',
-  PackageList = '/package-list',
+  CardPacks = '/card-packs',
 }

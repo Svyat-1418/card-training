@@ -9,7 +9,7 @@ import { Layout } from './Layout'
 import { CreateNewPassword } from '../recoveryPassword/CreateNewPasswordPage/CreateNewPassword'
 import { CheckEmail } from '../recoveryPassword/CheckEmailPage/CheckEmail'
 import Typography from '@mui/material/Typography'
-import { PackListPage } from '../packList/packListPage'
+import { CardPacksPage } from '../cardPacks/cardPacksPage'
 
 export const Routing = () => {
   return (
@@ -22,7 +22,7 @@ export const Routing = () => {
         <Route path={Path.ForgotPassword} element={<ForgotPassword />} />
         <Route path={Path.CheckEmail} element={<CheckEmail />} />
         <Route path={Path.CreateNewPassword} element={<CreateNewPassword />} />
-        <Route path={Path.PackageList} element={<PackListPage />} />
+        <Route path={Path.CardPacks} element={<CardPacksPage />} />
         <Route
           path={Path.Page404}
           element={<Typography variant={'h3'}>PAGE NOT FOUND :-(</Typography>}
