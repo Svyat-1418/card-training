@@ -12,7 +12,7 @@ export const cardPacksApi = {
     })
   },
   createPack(name: string) {
-    return instance.post(`cards/pack`, { name })
+    return instance.post(`cards/pack`, { cardsPack: { name } })
   },
   editPack(_id: string, name: string) {
     return instance.put(`cards/pack`, { cardsPack: { _id, name } })

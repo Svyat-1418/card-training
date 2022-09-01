@@ -74,8 +74,8 @@ export const createCardPackThunk =
     cardPacksApi
       .createPack(name)
       .then((res) => {
-        console.log(res)
-        // dispatch(getCardPacksThunk())
+        // console.log(res)
+        dispatch(getCardPacksThunk())
       })
       .catch((error) => console.log(error))
   }
