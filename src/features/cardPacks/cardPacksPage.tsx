@@ -12,14 +12,22 @@ import { Actions } from './components/ActionsComponent'
 import { EditablePackName } from './components/EditablePackNameComponent'
 import styles from './cardPacks.module.css'
 import { AddNewPack } from './components/AddNewPackComponent'
+import { MyCardsOnlySwitch } from './components/MyCardsOnlySwitch'
 
 export const CardPacksPage = () => {
+  let currentUserId = useAppSelector((state) => state.app.userData._id)
+  let privateMode = useAppSelector((state) => state.cardPacks.privateMode)
   let cardPacks: CardPacksType[] = useAppSelector((state) => state.cardPacks.cardPacks)
   let dispatch = useAppDispatch()
-  useEffect(() => {
-    dispatch(getCardPacksThunk())
-  }, [])
   let [editModeId, setEditModeId] = useState<string>('')
+
+  useEffect(() => {
+    if (privateMode) {
+      dispatch(getCardPacksThunk(currentUserId))
+    } else {
+      dispatch(getCardPacksThunk())
+    }
+  }, [privateMode])
 
   const setEditModeIdCb = (id: string) => {
     setEditModeId(id)
@@ -27,7 +35,10 @@ export const CardPacksPage = () => {
 
   return (
     <div className={styles.pageContainer}>
-      <AddNewPack />
+      <div className={styles.btnFlex}>
+        <AddNewPack />
+        <MyCardsOnlySwitch privateMode={privateMode} />
+      </div>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -57,7 +68,12 @@ export const CardPacksPage = () => {
                 <TableCell align="right">{pack.updated}</TableCell>
                 <TableCell align="right">{pack.created}</TableCell>
                 <TableCell align="right">
-                  <Actions currentName={pack.name} id={pack._id} setEditModeCb={setEditModeIdCb} />
+                  <Actions
+                    currentName={pack.name}
+                    userId={pack.user_id}
+                    packId={pack._id}
+                    setEditModeCb={setEditModeIdCb}
+                  />
                 </TableCell>
               </TableRow>
             ))}

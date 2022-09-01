@@ -27,11 +27,11 @@ export type CardPacksResponseType = {
 
 export type CardPacksStateTypes = {
   cardPacks: CardPacksType[]
-  editMode: boolean
+  privateMode: boolean
 }
 const initialState: CardPacksStateTypes = {
   cardPacks: [],
-  editMode: false,
+  privateMode: false,
 }
 
 export const cardPacksSlice = createSlice({
@@ -41,41 +41,63 @@ export const cardPacksSlice = createSlice({
     setCardPacksList(state: CardPacksStateTypes, action: PayloadAction<CardPacksType[]>) {
       state.cardPacks = action.payload
     },
-    setEditMode(state: CardPacksStateTypes, action: PayloadAction<boolean>) {
-      state.editMode = action.payload
+    setPrivateMode(state: CardPacksStateTypes, action: PayloadAction<boolean>) {
+      state.privateMode = action.payload
     },
   },
 })
 
-export const { setCardPacksList } = cardPacksSlice.actions
+export const { setCardPacksList, setPrivateMode } = cardPacksSlice.actions
 
-export const getCardPacksThunk = (): ThunkType => (dispatch) => {
-  cardPacksApi
-    .getPackList()
-    .then((res: AxiosResponse<CardPacksResponseType>) => {
-      dispatch(setCardPacksList(res.data.cardPacks))
-      console.log(res.data.cardPacks)
-    })
-    .catch((error) => console.log(error))
-}
-export const editCardPackThunk =
-  (id: string, name: string): ThunkType =>
+export const getCardPacksThunk =
+  (userId?: string): ThunkType =>
   (dispatch) => {
     cardPacksApi
-      .editPack(id, name)
+      .getPackList(userId)
+      .then((res: AxiosResponse<CardPacksResponseType>) => {
+        dispatch(setCardPacksList(res.data.cardPacks))
+      })
+      .catch((error) => console.log(error))
+  }
+export const editCardPackThunk =
+  (packId: string, name: string): ThunkType =>
+  (dispatch, getState) => {
+    cardPacksApi
+      .editPack(packId, name)
       .then((res) => {
-        dispatch(getCardPacksThunk())
+        if (getState().cardPacks.privateMode) {
+          dispatch(getCardPacksThunk(getState().app.userData._id))
+        } else {
+          dispatch(getCardPacksThunk())
+        }
       })
       .catch((error) => console.log(error))
   }
 export const createCardPackThunk =
   (name: string): ThunkType =>
-  (dispatch) => {
+  (dispatch, getState) => {
     cardPacksApi
       .createPack(name)
       .then((res) => {
-        // console.log(res)
-        dispatch(getCardPacksThunk())
+        if (getState().cardPacks.privateMode) {
+          dispatch(getCardPacksThunk(getState().app.userData._id))
+        } else {
+          dispatch(getCardPacksThunk())
+        }
+      })
+      .catch((error) => console.log(error))
+  }
+export const deleteCardPackThunk =
+  (_id: string): ThunkType =>
+  (dispatch, getState) => {
+    cardPacksApi
+      .deletePack(_id)
+      .then((res) => {
+        if (getState().cardPacks.privateMode) {
+          dispatch(getCardPacksThunk(getState().app.userData._id))
+        } else {
+          dispatch(getCardPacksThunk())
+        }
       })
       .catch((error) => console.log(error))
   }

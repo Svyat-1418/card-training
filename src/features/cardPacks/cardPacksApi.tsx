@@ -1,9 +1,8 @@
 import { instance } from '../../common/config/apiConfig'
 
 export const cardPacksApi = {
-  getPackList() {
+  getPackList(user_id?: string) {
     let pageCount = 5
-    let user_id = '6300e53693f58a3f1e8d9500'
     return instance.get(`cards/pack`, {
       params: {
         pageCount,
@@ -14,7 +13,14 @@ export const cardPacksApi = {
   createPack(name: string) {
     return instance.post(`cards/pack`, { cardsPack: { name } })
   },
-  editPack(_id: string, name: string) {
-    return instance.put(`cards/pack`, { cardsPack: { _id, name } })
+  editPack(packId: string, name: string) {
+    return instance.put(`cards/pack`, { cardsPack: { _id: packId, name } })
+  },
+  deletePack(id: string) {
+    return instance.delete(`cards/pack`, {
+      params: {
+        id,
+      },
+    })
   },
 }

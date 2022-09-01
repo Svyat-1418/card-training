@@ -1,26 +1,47 @@
 import { Button } from '@mui/material'
-import React, { useState } from 'react'
+import React from 'react'
 import styles from '../cardPacks.module.css'
-import { useAppDispatch } from '../../../common/hooks'
+import { useAppDispatch, useAppSelector } from '../../../common/hooks'
+import { deleteCardPackThunk } from '../cardPacksSlice'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
+import SchoolIcon from '@mui/icons-material/School'
 
 type ActionsPropsTypes = {
   setEditModeCb: (id: string) => void
   currentName: string
-  id: string
+  userId: string
+  packId: string
 }
 
-export const Actions: React.FC<ActionsPropsTypes> = ({ currentName, id, setEditModeCb }) => {
-  const createOnClickHandler = () => {}
+export const Actions: React.FC<ActionsPropsTypes> = ({
+  currentName,
+  userId,
+  packId,
+  setEditModeCb,
+}) => {
+  let currentUserId = useAppSelector((state) => state.app.userData._id)
+  let dispatch = useAppDispatch()
+  const ifBtnDisabled = userId !== currentUserId
 
   const editOnClickHandler = () => {
-    setEditModeCb(id)
+    setEditModeCb(packId)
   }
-  const deleteOnClickHandler = () => {}
+  const deleteOnClickHandler = () => {
+    dispatch(deleteCardPackThunk(packId))
+  }
+
   return (
     <div className={styles.btnFlex}>
-      <Button onClick={createOnClickHandler}>create</Button>
-      <Button onClick={editOnClickHandler}>edit</Button>
-      <Button onClick={deleteOnClickHandler}>delete</Button>
+      <Button disabled>
+        <SchoolIcon fontSize={'small'} />
+      </Button>
+      <Button disabled={ifBtnDisabled} onClick={editOnClickHandler}>
+        <EditIcon fontSize={'small'} />
+      </Button>
+      <Button disabled={ifBtnDisabled} onClick={deleteOnClickHandler}>
+        <DeleteIcon fontSize={'small'} />
+      </Button>
     </div>
   )
 }
