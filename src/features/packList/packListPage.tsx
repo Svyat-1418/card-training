@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import Table from '@mui/material/Table'
 import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
@@ -7,7 +7,7 @@ import TableRow from '@mui/material/TableRow'
 import TableBody from '@mui/material/TableBody'
 import Paper from '@mui/material/Paper'
 import { getPackListThunk } from './packListSlice'
-import {useAppDispatch} from "../../common/hooks";
+import { useAppDispatch } from '../../common/hooks'
 
 export const PackListPage = () => {
   function createData(name: string, calories: number, fat: number, carbs: number, protein: number) {
