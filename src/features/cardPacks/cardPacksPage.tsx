@@ -13,6 +13,8 @@ import { EditablePackName } from './components/EditablePackNameComponent'
 import styles from './cardPacks.module.css'
 import { AddNewPack } from './components/AddNewPackComponent'
 import { MyCardsOnlySwitch } from './components/MyCardsOnlySwitch'
+import { NavLink } from 'react-router-dom'
+import { setPackIdAC } from '../cards/cards-slice'
 
 export const CardPacksPage = () => {
   let currentUserId = useAppSelector((state) => state.app.userData._id)
@@ -51,32 +53,39 @@ export const CardPacksPage = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {cardPacks.map((pack: CardPacksType) => (
-              <TableRow key={pack._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                <TableCell component="th" scope="row">
-                  {pack._id === editModeId ? (
-                    <EditablePackName
-                      _id={pack._id}
-                      startName={pack.name}
+            {cardPacks.map((pack: CardPacksType) => {
+              const onPackClickHandler = () => {
+                dispatch(setPackIdAC({ packId: pack._id }))
+              }
+              return (
+                <TableRow key={pack._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                  <TableCell component="th" scope="row">
+                    {pack._id === editModeId ? (
+                      <EditablePackName
+                        _id={pack._id}
+                        startName={pack.name}
+                        setEditModeCb={setEditModeIdCb}
+                      />
+                    ) : (
+                      <NavLink to={`/card-page`} onClick={onPackClickHandler}>
+                        `${pack.name}`
+                      </NavLink>
+                    )}
+                  </TableCell>
+                  <TableCell align="right">{pack.cardsCount}</TableCell>
+                  <TableCell align="right">{pack.updated}</TableCell>
+                  <TableCell align="right">{pack.created}</TableCell>
+                  <TableCell align="right">
+                    <Actions
+                      currentName={pack.name}
+                      userId={pack.user_id}
+                      packId={pack._id}
                       setEditModeCb={setEditModeIdCb}
                     />
-                  ) : (
-                    `${pack.name}`
-                  )}
-                </TableCell>
-                <TableCell align="right">{pack.cardsCount}</TableCell>
-                <TableCell align="right">{pack.updated}</TableCell>
-                <TableCell align="right">{pack.created}</TableCell>
-                <TableCell align="right">
-                  <Actions
-                    currentName={pack.name}
-                    userId={pack.user_id}
-                    packId={pack._id}
-                    setEditModeCb={setEditModeIdCb}
-                  />
-                </TableCell>
-              </TableRow>
-            ))}
+                  </TableCell>
+                </TableRow>
+              )
+            })}
           </TableBody>
         </Table>
       </TableContainer>
