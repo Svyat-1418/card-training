@@ -1,82 +1,63 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import Paper from '@mui/material/Paper'
 
-import LayersIcon from '@mui/icons-material/Layers'
-import Logout from '@mui/icons-material/Logout'
-
-import anonymousUserAva from '../../assets/images/userAnonymousAvatar.jpg'
-
 import { EditableText } from '../../common/components/EditableText'
 import { useAppSelector } from '../../common/hooks'
-import { Navigate } from 'react-router-dom'
+import { Navigate, NavLink } from 'react-router-dom'
 import { Path } from '../../common/enums/Path'
+import { ArrowBack } from '@mui/icons-material'
+import Avatar from '@mui/material/Avatar'
+import { Stack } from '@mui/material'
 
 export const PersonalInformation = () => {
-  const [tempUserNameText, setTempUserNameText] = useState('User_Name')
-  const [tempUserEmailText, setTempUserEmailText] = useState('useremail@gmail.com')
-
   const isLoggedIn = useAppSelector((state) => state.login.isLoggedIn)
+  const publicCardPacksCount = useAppSelector((state) => state.app.userData.publicCardPacksCount)
+  const userAvatar = useAppSelector((state) => state.app.userData.avatar)
+  const userName = useAppSelector((state) => state.app.userData.name)
 
   if (!isLoggedIn) {
     return <Navigate to={Path.SingIn} />
   }
 
   return (
-    <Grid height={'100vh'} container justifyContent={'center'} alignItems={'center'}>
-      <Grid item>
+    <Box>
+      <Grid height={'100vh'} container justifyContent={'center'} alignItems={'center'}>
         <Paper variant={'outlined'}>
-          <Card sx={{ maxWidth: 405 }}>
-            <Box display={'flex'} justifyContent={'space-between'}>
-              <IconButton>
-                <LayersIcon />
-                Pack List
-              </IconButton>
-
-              <IconButton>
-                <Logout />
-                Log Out
-              </IconButton>
-            </Box>
-
-            <Typography margin={'.7rem'} variant={'h4'}>
+          <Card sx={{ maxWidth: 800 }}>
+            <Typography margin={'1rem'} variant={'h4'} fontWeight={'normal'}>
               Personal Information
             </Typography>
-            <CardMedia
-              component="img"
-              height="235"
-              style={{ borderRadius: '50%', margin: '10 0' }}
-              image={anonymousUserAva}
-              alt="avatar"
-            />
 
-            <CardContent>
-              <EditableText
-                text={tempUserNameText}
-                variant={'h5'}
-                newTextCallback={(newText: string) => {
-                  setTempUserNameText(newText)
-                }}
-              />
+            <Stack direction="column" justifyContent="space-around" alignItems="center" spacing={3}>
+              <Avatar src={userAvatar} sx={{ width: 150, height: 150 }}></Avatar>
 
-              <EditableText
-                text={tempUserEmailText}
-                variant={'body1'}
-                newTextCallback={(newText: string) => {
-                  setTempUserEmailText(newText)
-                }}
-              />
-            </CardContent>
+              <CardContent>
+                <EditableText
+                  text={userName}
+                  variant={'h5'}
+                  newTextCallback={(newText: string) => {}}
+                />
+
+                <Typography>Count public packs: {publicCardPacksCount}</Typography>
+
+                <NavLink to={Path.PackageList}>
+                  <IconButton>
+                    <ArrowBack />
+                    Back to Pack List
+                  </IconButton>
+                </NavLink>
+              </CardContent>
+            </Stack>
           </Card>
         </Paper>
       </Grid>
-    </Grid>
+    </Box>
   )
 }

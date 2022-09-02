@@ -98,31 +98,39 @@ export const AccountSettings = () => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem>
-          <ListItemIcon>
-            <Avatar src={userAvatar} />
-          </ListItemIcon>
-          <NavLink to={Path.PersonalInformation}> Personal information</NavLink>
+          <NavLink to={Path.PersonalInformation}>
+            <ListItemIcon>
+              <Avatar src={userAvatar} />
+            </ListItemIcon>
+            Personal information
+          </NavLink>
         </MenuItem>
+
         <MenuItem>
+          <NavLink to={Path.CardPacks}>
           <ListItemIcon>
             <Layers />
           </ListItemIcon>
-          <NavLink to={Path.CardPacks}> Pack list</NavLink>
+          Pack list</NavLink>
         </MenuItem>
         <Divider />
 
         <MenuItem>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          <NavLink to={Path.SingUp}> Create another account</NavLink>
+          <NavLink to={Path.SingUp}>
+            <ListItemIcon>
+              <PersonAdd fontSize="small" />
+            </ListItemIcon>
+            Create another account
+          </NavLink>
         </MenuItem>
 
         <MenuItem>
-          <ListItemIcon>
-            <Password fontSize="small" />
-          </ListItemIcon>
-          <NavLink to={Path.ForgotPassword}> Change password</NavLink>
+          <NavLink to={Path.ForgotPassword}>
+            <ListItemIcon>
+              <Password fontSize="small" />
+            </ListItemIcon>
+            Change password
+          </NavLink>
         </MenuItem>
 
         <MenuItem>
