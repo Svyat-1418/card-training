@@ -9,6 +9,8 @@ import { CardPacksType } from '../cardPacksSlice'
 import { EditablePackName } from './EditablePackNameComponent'
 import { Actions } from './ActionsComponent'
 import TableContainer from '@mui/material/TableContainer'
+import { NavLink } from 'react-router-dom'
+import { Path } from '../../../common/enums/Path'
 
 type PacksTablePropsType = {
   cardPacks: CardPacksType[]
@@ -43,7 +45,7 @@ export const PacksTable: React.FC<PacksTablePropsType> = ({ cardPacks }) => {
                     setEditModeCb={setEditModeIdCb}
                   />
                 ) : (
-                  `${pack.name}`
+                  <NavLink to={`/card-page/${pack._id}`}>{pack.name}</NavLink>
                 )}
               </TableCell>
               <TableCell align="right">{pack.cardsCount}</TableCell>

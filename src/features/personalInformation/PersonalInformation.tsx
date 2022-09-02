@@ -47,7 +47,7 @@ export const PersonalInformation = () => {
 
                 <Typography>Count public packs: {publicCardPacksCount}</Typography>
 
-                <NavLink to={Path.PackageList}>
+                <NavLink to={Path.CardPacks}>
                   <IconButton>
                     <ArrowBack />
                     Back to Pack List
