@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ThunkType } from '../../app/store'
 import { cardPacksApi } from './cardPacksApi'
 import { AxiosResponse } from 'axios'
+import { handleNetworkError } from '../../common/utils/errorUtil'
 
 export type CardPacksType = {
   _id: string
@@ -63,7 +64,7 @@ export const getCardPacksThunk =
       .then((res: AxiosResponse<CardPacksResponseType>) => {
         dispatch(setCardPacksList(res.data))
       })
-      .catch((error) => console.log(error))
+      .catch((error) => handleNetworkError(error, dispatch))
   }
 export const editCardPackThunk =
   (packId: string, name: string): ThunkType =>
@@ -77,7 +78,7 @@ export const editCardPackThunk =
           dispatch(getCardPacksThunk())
         }
       })
-      .catch((error) => console.log(error))
+      .catch((error) => handleNetworkError(error, dispatch))
   }
 export const createCardPackThunk =
   (name: string): ThunkType =>
@@ -91,7 +92,7 @@ export const createCardPackThunk =
           dispatch(getCardPacksThunk())
         }
       })
-      .catch((error) => console.log(error))
+      .catch((error) => handleNetworkError(error, dispatch))
   }
 export const deleteCardPackThunk =
   (_id: string): ThunkType =>
@@ -105,5 +106,5 @@ export const deleteCardPackThunk =
           dispatch(getCardPacksThunk())
         }
       })
-      .catch((error) => console.log(error))
+      .catch((error) => handleNetworkError(error, dispatch))
   }
