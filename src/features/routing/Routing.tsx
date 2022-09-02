@@ -10,6 +10,7 @@ import { CreateNewPassword } from '../recoveryPassword/CreateNewPasswordPage/Cre
 import { CheckEmail } from '../recoveryPassword/CheckEmailPage/CheckEmail'
 import Typography from '@mui/material/Typography'
 import { CardPacksPage } from '../cardPacks/cardPacksPage'
+import { CardsPage } from '../cards/cardsPage'
 
 export const Routing = () => {
   return (
@@ -23,6 +24,7 @@ export const Routing = () => {
         <Route path={Path.CheckEmail} element={<CheckEmail />} />
         <Route path={Path.CreateNewPassword} element={<CreateNewPassword />} />
         <Route path={Path.CardPacks} element={<CardPacksPage />} />
+        <Route path={Path.CardPage} element={<CardsPage />} />
         <Route
           path={Path.Page404}
           element={<Typography variant={'h3'}>PAGE NOT FOUND :-(</Typography>}
