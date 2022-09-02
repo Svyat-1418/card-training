@@ -51,7 +51,9 @@ export const AddNewPack = () => {
 
   return (
     <div>
-      <Button onClick={handleOpen}>add new pack</Button>
+      <Button variant="contained" onClick={handleOpen}>
+        add new pack
+      </Button>
       <Modal open={open}>
         <Box sx={style}>
           <TextField

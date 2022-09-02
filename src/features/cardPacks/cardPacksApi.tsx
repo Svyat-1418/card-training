@@ -1,12 +1,13 @@
 import { instance } from '../../common/config/apiConfig'
 
 export const cardPacksApi = {
-  getPackList(user_id?: string) {
+  getPackList(user_id?: string, page?: number) {
     let pageCount = 5
     return instance.get(`cards/pack`, {
       params: {
         pageCount,
         user_id,
+        page,
       },
     })
   },
