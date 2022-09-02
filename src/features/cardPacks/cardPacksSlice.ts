@@ -3,6 +3,7 @@ import { ThunkType } from '../../app/store'
 import { cardPacksApi } from './cardPacksApi'
 import { AxiosResponse } from 'axios'
 import { handleNetworkError } from '../../common/utils/errorUtil'
+import { setStatus } from '../../app/appSlice'
 
 export type CardPacksType = {
   _id: string
@@ -59,16 +60,23 @@ export const { setCardPacksList, setPrivateMode } = cardPacksSlice.actions
 export const getCardPacksThunk =
   (userId?: string, page?: number): ThunkType =>
   (dispatch) => {
+    dispatch(setStatus({ status: 'loading' }))
     cardPacksApi
       .getPackList(userId, page)
       .then((res: AxiosResponse<CardPacksResponseType>) => {
         dispatch(setCardPacksList(res.data))
       })
-      .catch((error) => handleNetworkError(error, dispatch))
+      .catch((error) => {
+        handleNetworkError(error, dispatch)
+      })
+      .finally(() => {
+        dispatch(setStatus({ status: 'idle' }))
+      })
   }
 export const editCardPackThunk =
   (packId: string, name: string): ThunkType =>
   (dispatch, getState) => {
+    dispatch(setStatus({ status: 'loading' }))
     cardPacksApi
       .editPack(packId, name)
       .then((res) => {
@@ -78,11 +86,18 @@ export const editCardPackThunk =
           dispatch(getCardPacksThunk())
         }
       })
-      .catch((error) => handleNetworkError(error, dispatch))
+      .catch((error) => {
+        handleNetworkError(error, dispatch)
+      })
+      .finally(() => {
+        dispatch(setStatus({ status: 'idle' }))
+      })
   }
+
 export const createCardPackThunk =
   (name: string): ThunkType =>
   (dispatch, getState) => {
+    dispatch(setStatus({ status: 'loading' }))
     cardPacksApi
       .createPack(name)
       .then((res) => {
@@ -92,11 +107,17 @@ export const createCardPackThunk =
           dispatch(getCardPacksThunk())
         }
       })
-      .catch((error) => handleNetworkError(error, dispatch))
+      .catch((error) => {
+        handleNetworkError(error, dispatch)
+      })
+      .finally(() => {
+        dispatch(setStatus({ status: 'idle' }))
+      })
   }
 export const deleteCardPackThunk =
   (_id: string): ThunkType =>
   (dispatch, getState) => {
+    dispatch(setStatus({ status: 'loading' }))
     cardPacksApi
       .deletePack(_id)
       .then((res) => {
@@ -106,5 +127,10 @@ export const deleteCardPackThunk =
           dispatch(getCardPacksThunk())
         }
       })
-      .catch((error) => handleNetworkError(error, dispatch))
+      .catch((error) => {
+        handleNetworkError(error, dispatch)
+      })
+      .finally(() => {
+        dispatch(setStatus({ status: 'idle' }))
+      })
   }

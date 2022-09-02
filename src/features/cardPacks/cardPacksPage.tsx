@@ -12,10 +12,13 @@ export const CardPacksPage = () => {
   let privateMode = useAppSelector((state) => state.cardPacks.privateMode)
   let totalPacks = useAppSelector((state) => state.cardPacks.cardPacksInfo.cardPacksTotalCount)
   let currentPagePacksCount = useAppSelector((state) => state.cardPacks.cardPacksInfo.pageCount)
+
   let cardPacks: CardPacksType[] = useAppSelector(
     (state) => state.cardPacks.cardPacksInfo.cardPacks
   )
+
   let dispatch = useAppDispatch()
+
   useEffect(() => {
     if (privateMode) {
       dispatch(getCardPacksThunk(currentUserId))
