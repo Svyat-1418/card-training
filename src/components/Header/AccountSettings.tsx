@@ -108,10 +108,11 @@ export const AccountSettings = () => {
 
         <MenuItem>
           <NavLink to={Path.CardPacks}>
-          <ListItemIcon>
-            <Layers />
-          </ListItemIcon>
-          Pack list</NavLink>
+            <ListItemIcon>
+              <Layers />
+            </ListItemIcon>
+            Pack list
+          </NavLink>
         </MenuItem>
         <Divider />
 

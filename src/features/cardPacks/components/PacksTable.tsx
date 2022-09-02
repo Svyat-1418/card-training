@@ -45,7 +45,7 @@ export const PacksTable: React.FC<PacksTablePropsType> = ({ cardPacks }) => {
                     setEditModeCb={setEditModeIdCb}
                   />
                 ) : (
-                  <NavLink to={`/card-page/${pack._id}`}>{pack.name}</NavLink>
+                  <NavLink to={`/card-page/${pack._id}`}>{pack.name.slice(0, 25)}</NavLink>
                 )}
               </TableCell>
               <TableCell align="right">{pack.cardsCount}</TableCell>
