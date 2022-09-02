@@ -8,6 +8,7 @@ import { RootStateType } from '../../app/store'
 import { Button } from '@mui/material'
 import { NavLink, useParams } from 'react-router-dom'
 import { CardQueryParams } from './cards-api'
+import s from './cards.module.css'
 
 export const CardsPage = () => {
   const dispatch = useAppDispatch()
@@ -32,7 +33,7 @@ export const CardsPage = () => {
   }, [queryParams])
   return (
     <div>
-      <div>
+      <div className={s.header}>
         <NavLink to={'/card-packs'}>
           <span>
             <KeyboardBackspaceIcon style={{ paddingTop: '5px' }} /> Back to Pack List
