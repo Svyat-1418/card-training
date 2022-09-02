@@ -1,8 +1,21 @@
 import { instance } from '../../common/config/apiConfig'
 
 export const cardsAPI = {
-  getCards(params: any) {
+  getCards(params: CardQueryParams) {
     return instance.get<ResponseGetCardType>('/cards/card', { params: params })
+  },
+  deleteCard(id: string) {
+    return instance.delete('/cards/card', {
+      params: {
+        id,
+      },
+    })
+  },
+  updateCard(data: UpdateCardType) {
+    return instance.put('/cards/card', data)
+  },
+  createCard(data: CreateCardType) {
+    return instance.post('/cards/card', data)
   },
 }
 
@@ -32,4 +45,35 @@ export type ResponseGetCardType = {
   maxGrade: number
   token: string
   tokenDeathTime: number
+}
+export type CardQueryParams = {
+  cardAnswer?: string
+  cardQuestion?: string
+  cardsPack_id?: string | undefined
+  min?: string
+  max?: string
+  sortCards?: string
+  page?: number
+  pageCount?: number
+}
+export type CreateCardType = {
+  card: {
+    cardsPack_id: string | undefined
+    question?: string
+    answer?: string
+    grade?: number
+    shots?: number
+    answerImg?: string
+    questionImg?: string
+    questionVideo?: string
+    answerVideo?: string
+  }
+}
+
+export type UpdateCardType = {
+  card: {
+    _id: string
+    question?: string
+    answer?: string
+  }
 }
