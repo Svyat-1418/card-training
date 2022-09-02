@@ -7,5 +7,5 @@ export enum Path {
   PersonalInformation = '/personal-information',
   Page404 = '/404',
   CardPacks = '/card-packs',
-  CardPage = '/card-page/*',
+  CardPage = '/card-page/:id',
 }
