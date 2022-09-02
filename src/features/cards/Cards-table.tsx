@@ -5,6 +5,7 @@ import { CardType } from './cards-api'
 import React from 'react'
 import { CardTableHead } from './cardTableHead'
 import { CrudTableOperations } from './crudTableOperations'
+import style from './cards.module.css'
 
 type ComponentType = {
   packId: string | undefined
@@ -20,7 +21,7 @@ export const CardsTable = (props: ComponentType) => {
   const rows = useSelector<RootStateType, CardType[]>((state) => state.cards.cardsData.cards)
 
   return (
-    <TableContainer>
+    <TableContainer className={style.tableContainer}>
       <Table>
         <CardTableHead />
         <TableBody>
