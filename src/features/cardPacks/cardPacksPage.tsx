@@ -14,7 +14,6 @@ import styles from './cardPacks.module.css'
 import { AddNewPack } from './components/AddNewPackComponent'
 import { MyCardsOnlySwitch } from './components/MyCardsOnlySwitch'
 import { NavLink } from 'react-router-dom'
-import { setPackIdAC } from '../cards/cards-slice'
 
 export const CardPacksPage = () => {
   let currentUserId = useAppSelector((state) => state.app.userData._id)
@@ -54,9 +53,6 @@ export const CardPacksPage = () => {
           </TableHead>
           <TableBody>
             {cardPacks.map((pack: CardPacksType) => {
-              const onPackClickHandler = () => {
-                dispatch(setPackIdAC({ packId: pack._id }))
-              }
               return (
                 <TableRow key={pack._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                   <TableCell component="th" scope="row">
@@ -67,9 +63,7 @@ export const CardPacksPage = () => {
                         setEditModeCb={setEditModeIdCb}
                       />
                     ) : (
-                      <NavLink to={`/card-page`} onClick={onPackClickHandler}>
-                        `${pack.name}`
-                      </NavLink>
+                      <NavLink to={`/card-page/${pack._id}`}>`${pack.name}`</NavLink>
                     )}
                   </TableCell>
                   <TableCell align="right">{pack.cardsCount}</TableCell>

@@ -7,19 +7,28 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
 } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { RootStateType } from '../../app/store'
 import { CardType } from './cards-api'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
-import React, { ChangeEvent, ChangeEventHandler, useState } from 'react'
+import React from 'react'
 import { useAppDispatch } from '../../common/hooks'
 import { deleteCardThunk, updateCardThunk } from './cards-slice'
 
-export const CardsTable = () => {
+type ComponentType = {
+  packId: string | undefined
+}
+
+export const CardsTable = (props: ComponentType) => {
   const dispatch = useAppDispatch()
+
+  const convertDate = (date: string) => {
+    const newDate = new Date(date)
+    const formattedDate = `${newDate.toLocaleDateString()} ${newDate.toLocaleTimeString()}`
+    return formattedDate
+  }
 
   const columns = [
     { field: 'question', headerName: 'Question', width: 400 },
@@ -47,7 +56,22 @@ export const CardsTable = () => {
         <TableBody>
           {rows.map((row) => {
             const onDeleteClickIcon = () => {
-              dispatch(deleteCardThunk(row._id))
+              props.packId && dispatch(deleteCardThunk(row._id, props.packId))
+            }
+            const onEditCardClick = () => {
+              props.packId &&
+                dispatch(
+                  updateCardThunk(
+                    {
+                      card: {
+                        _id: row._id,
+                        question: 'UpdatedCard',
+                        answer: 'Updated answer',
+                      },
+                    },
+                    props.packId
+                  )
+                )
             }
 
             return (
@@ -59,11 +83,11 @@ export const CardsTable = () => {
                   {row.question}
                 </TableCell>
                 <TableCell>{row.answer}</TableCell>
-                <TableCell>{row.updated}</TableCell>
+                <TableCell>{convertDate(row.updated)}</TableCell>
                 <TableCell valign={'middle'}>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
                     <Rating name="disabled" value={row.grade} disabled />
-                    <Button onClick={() => {}}>
+                    <Button onClick={onEditCardClick}>
                       <EditIcon fontSize={'small'} />
                     </Button>
                     <Button onClick={onDeleteClickIcon}>

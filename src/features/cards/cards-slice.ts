@@ -8,7 +8,6 @@ import {
   UpdateCardType,
 } from './cards-api'
 import { ThunkType } from '../../app/store'
-import { Dispatch } from 'redux'
 import { AxiosError } from 'axios'
 import { handleNetworkError } from '../../common/utils/errorUtil'
 
@@ -27,6 +26,7 @@ const initialState = {
   queryParams: {} as CardQueryParams,
   sortParams: {},
 }
+console.log(initialState)
 
 export const packListSlice = createSlice({
   name: 'packList',
@@ -35,15 +35,15 @@ export const packListSlice = createSlice({
     setCardsAC(state, action: PayloadAction<{ cardsData: ResponseGetCardType }>) {
       state.cardsData = action.payload.cardsData
     },
-    setPackIdAC(state, action: PayloadAction<{ packId: string }>) {
-      state.queryParams.cardsPack_id = action.payload.packId
+    clearCardsListAC(state) {
+      state.cardsData.cards = []
     },
   },
 })
 
 export const cardsReducer = packListSlice.reducer
 
-export const { setCardsAC, setPackIdAC } = packListSlice.actions
+export const { setCardsAC, clearCardsListAC } = packListSlice.actions
 
 export const getCardsThunk =
   (params: CardQueryParams): ThunkType =>
@@ -56,22 +56,22 @@ export const getCardsThunk =
       .catch((err: AxiosError<{ error: string }>) => {})
   }
 export const deleteCardThunk =
-  (id: string): ThunkType =>
+  (id: string, packId: string): ThunkType =>
   (dispatch, getState) => {
     cardsAPI
       .deleteCard(id)
       .then((res) => {
-        dispatch(getCardsThunk(getState().cards.queryParams))
+        dispatch(getCardsThunk({ cardsPack_id: packId, ...getState().cards.queryParams }))
       })
       .catch((err: AxiosError<{ error: string }>) => handleNetworkError(err, dispatch))
   }
 export const updateCardThunk =
-  (data: UpdateCardType): ThunkType =>
+  (data: UpdateCardType, packId: string): ThunkType =>
   (dispatch, getState) => {
     cardsAPI
       .updateCard(data)
       .then((res) => {
-        dispatch(getCardsThunk(getState().cards.queryParams))
+        dispatch(getCardsThunk({ cardsPack_id: packId, ...getState().cards.queryParams }))
       })
       .catch((err: AxiosError<{ error: string }>) => handleNetworkError(err, dispatch))
   }
