@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { CardPacksType, getCardPacksThunk } from './cardPacksSlice'
 import { useAppDispatch, useAppSelector } from '../../common/hooks'
-import styles from './cardPacks.module.css'
+import style from './cardPacks.module.css'
 import { AddNewPack } from './components/AddNewPackComponent'
 import { MyCardsOnlySwitch } from './components/MyCardsOnlySwitch'
 import { PacksTable } from './components/PacksTable'
@@ -28,18 +28,20 @@ export const CardPacksPage = () => {
   }, [privateMode])
 
   return (
-    <div className={styles.pageContainer}>
-      <div className={styles.btnPanel}>
+    <div className={style.pageContainer}>
+      <div className={style.btnPanel}>
         <AddNewPack />
         <MyCardsOnlySwitch privateMode={privateMode} />
       </div>
-      <PacksTable cardPacks={cardPacks} />
-      <div className={styles.pagination}>
-        <PacksPagination
-          currentUserId={currentUserId}
-          privateMode={privateMode}
-          totalPages={Math.ceil(totalPacks / currentPagePacksCount)}
-        />
+      <div className={style.tableContainer}>
+        <PacksTable cardPacks={cardPacks} />
+        <div className={style.pagination}>
+          <PacksPagination
+            currentUserId={currentUserId}
+            privateMode={privateMode}
+            totalPages={Math.ceil(totalPacks / currentPagePacksCount)}
+          />
+        </div>
       </div>
     </div>
   )
