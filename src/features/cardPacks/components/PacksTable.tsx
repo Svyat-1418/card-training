@@ -10,7 +10,7 @@ import { EditablePackName } from './EditablePackNameComponent'
 import { Actions } from './ActionsComponent'
 import TableContainer from '@mui/material/TableContainer'
 import { NavLink } from 'react-router-dom'
-import { Path } from '../../../common/enums/Path'
+import { ConvertDate } from '../../../common/utils/convertDate'
 
 type PacksTablePropsType = {
   cardPacks: CardPacksType[]
@@ -49,8 +49,8 @@ export const PacksTable: React.FC<PacksTablePropsType> = ({ cardPacks }) => {
                 )}
               </TableCell>
               <TableCell align="right">{pack.cardsCount}</TableCell>
-              <TableCell align="right">{pack.updated}</TableCell>
-              <TableCell align="right">{pack.created}</TableCell>
+              <TableCell align="right">{ConvertDate(pack.updated)}</TableCell>
+              <TableCell align="right">{ConvertDate(pack.created)}</TableCell>
               <TableCell align="right">
                 <Actions
                   currentName={pack.name}

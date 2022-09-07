@@ -6,18 +6,13 @@ import React from 'react'
 import { CardTableHead } from './cardTableHead'
 import { CrudTableOperations } from './crudTableOperations'
 import style from '../cards.module.css'
+import { ConvertDate } from '../../../common/utils/convertDate'
 
 type ComponentType = {
   packId: string | undefined
 }
 
 export const CardsTable = (props: ComponentType) => {
-  const convertDate = (date: string) => {
-    const newDate = new Date(date)
-    const formattedDate = `${newDate.toLocaleDateString()} ${newDate.toLocaleTimeString()}`
-    return formattedDate
-  }
-
   const rows = useSelector<RootStateType, CardType[]>((state) => state.cards.cardsData.cards)
 
   return (
@@ -35,7 +30,7 @@ export const CardsTable = (props: ComponentType) => {
                   {row.question}
                 </TableCell>
                 <TableCell>{row.answer}</TableCell>
-                <TableCell>{convertDate(row.updated)}</TableCell>
+                <TableCell>{ConvertDate(row.updated)}</TableCell>
                 <CrudTableOperations packId={props.packId} cardId={row._id} rating={row.rating} />
               </TableRow>
             )
