@@ -27,11 +27,19 @@ export const PacksTable: React.FC<PacksTablePropsType> = ({ cardPacks }) => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Cards</TableCell>
-            <TableCell align="right">Last updated</TableCell>
-            <TableCell align="right">Created by</TableCell>
-            <TableCell align="right">Actions</TableCell>
+            <TableCell width={'400px'}>Name</TableCell>
+            <TableCell align="right" width={'100px'}>
+              Cards
+            </TableCell>
+            <TableCell align="right" width={'400px'}>
+              Last updated
+            </TableCell>
+            <TableCell align="right" width={'400px'}>
+              Created by
+            </TableCell>
+            <TableCell align="center" width={'400px'}>
+              Actions
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -45,7 +53,9 @@ export const PacksTable: React.FC<PacksTablePropsType> = ({ cardPacks }) => {
                     setEditModeCb={setEditModeIdCb}
                   />
                 ) : (
-                  <NavLink to={`/card-page/${pack._id}`}>{pack.name.slice(0, 25)}</NavLink>
+                  <NavLink to={`/card-page/${pack._id}/${pack.user_id}`}>
+                    {pack.name.slice(0, 25)}
+                  </NavLink>
                 )}
               </TableCell>
               <TableCell align="right">{pack.cardsCount}</TableCell>

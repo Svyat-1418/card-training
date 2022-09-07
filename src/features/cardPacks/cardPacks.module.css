@@ -1,17 +1,22 @@
 .pageContainer{
     width: 100%;
 }
+.pageNameContainer{
+    width: 75%;
+    margin: 0 auto;
+    padding-bottom: 15px;
+}
 .btnPanel {
     display: flex;
     align-self: flex-start;
 
-    width: 70%;
+    width: 75%;
     margin-right: auto;
     margin-left: auto;
     padding-bottom: 15px;
 }
 .tableContainer {
-    width: 70%;
+    width: 75%;
     max-height: 70vh;
     margin: 0 auto;
 }

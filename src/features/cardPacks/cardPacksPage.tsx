@@ -29,6 +29,9 @@ export const CardPacksPage = () => {
 
   return (
     <div className={style.pageContainer}>
+      <div className={style.pageNameContainer}>
+        <h2>Packs list</h2>
+      </div>
       <div className={style.btnPanel}>
         <AddNewPack />
         <MyCardsOnlySwitch privateMode={privateMode} />
