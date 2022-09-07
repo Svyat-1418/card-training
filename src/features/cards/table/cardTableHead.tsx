@@ -7,6 +7,7 @@ export const CardTableHead = () => {
     { field: 'answer', headerName: 'Answer', width: 400 },
     { field: 'updated', headerName: 'Last Updated', width: 200 },
     { field: 'grade', headerName: 'Grade', width: 200 },
+    { field: 'actions', headerName: '', width: 100 },
   ]
 
   return (

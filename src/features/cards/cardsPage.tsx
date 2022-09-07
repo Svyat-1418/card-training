@@ -11,8 +11,11 @@ export const CardsPage = () => {
   const dispatch = useAppDispatch()
   const params = useParams()
   const packId = params.id
+  const userId = params.userId
 
   const queryParams = useAppSelector((state) => state.cards.queryParams)
+  let currentUserId = useAppSelector((state) => state.app.userData._id)
+  const isUserCard = currentUserId === userId
 
   const onAddCardHandler = () => {
     dispatch(
@@ -29,16 +32,24 @@ export const CardsPage = () => {
   return (
     <div>
       <div className={style.header}>
-        <NavLink to={'/card-packs'}>
-          <span>
-            <KeyboardBackspaceIcon style={{ paddingTop: '5px' }} /> Back to Pack List
-          </span>
-        </NavLink>
-
-        <Button onClick={onAddCardHandler}>add new card</Button>
+        <div className={style.backContainer}>
+          <NavLink to={'/card-packs'}>
+            <h2>
+              <KeyboardBackspaceIcon style={{ paddingTop: '5px' }} /> Back to Pack List
+            </h2>
+          </NavLink>
+        </div>
+        <div className={style.addCardContainer}>
+          {isUserCard ? <h1>My pack</h1> : <h1>Friends pack</h1>}
+          {isUserCard && (
+            <Button variant="contained" onClick={onAddCardHandler}>
+              add new card
+            </Button>
+          )}
+        </div>
       </div>
       <div className={style.tableContainer}>
-        <CardsTable packId={packId} />
+        <CardsTable packId={packId} isUserCard={isUserCard} />
       </div>
     </div>
   )

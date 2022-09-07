@@ -13,3 +13,13 @@
     margin-left: auto;
 
 }
+.backContainer h2{
+    color: black;
+    text-decoration: none;
+}
+.addCardContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
