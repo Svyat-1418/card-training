@@ -1,6 +1,6 @@
 import { instance } from '../../common/config/apiConfig'
 
-export const cardsAPI = {
+export const cardsApi = {
   getCards(params: CardQueryParams) {
     return instance.get<ResponseGetCardType>('/cards/card', { params: params })
   },

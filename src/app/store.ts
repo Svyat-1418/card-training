@@ -11,7 +11,7 @@ import { recoveryPasswordSlice } from '../features/recoveryPassword/recoveryPass
 import thunk from 'redux-thunk'
 import { appReducer } from './appSlice'
 import { cardPacksSlice } from '../features/cardPacks/cardPacksSlice'
-import { cardsReducer } from '../features/cards/cards-slice'
+import { cardsReducer } from '../features/cards/cardsSlice'
 
 const RootReducer = combineReducers({
   login: loginReducer,

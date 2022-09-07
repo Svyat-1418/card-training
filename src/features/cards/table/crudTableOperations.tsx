@@ -2,8 +2,8 @@ import { Button, Rating, TableCell } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import React from 'react'
-import { deleteCardThunk, updateCardThunk } from './cards-slice'
-import { useAppDispatch } from '../../common/hooks'
+import { deleteCardThunk, updateCardThunk } from '../cardsSlice'
+import { useAppDispatch } from '../../../common/hooks'
 
 type ComponentType = {
   packId: string | undefined

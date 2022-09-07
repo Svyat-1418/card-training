@@ -1,13 +1,13 @@
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
-import { CardsTable } from './Cards-table'
+import { CardsTable } from './table/CardsTable'
 import { useEffect } from 'react'
 import { useAppDispatch } from '../../common/hooks'
-import { addCardThunk, clearCardsListAC, getCardsThunk } from './cards-slice'
+import { addCardThunk, clearCardsListAC, getCardsThunk } from './cardsSlice'
 import { useSelector } from 'react-redux'
 import { RootStateType } from '../../app/store'
 import { Button } from '@mui/material'
 import { NavLink, useParams } from 'react-router-dom'
-import { CardQueryParams } from './cards-api'
+import { CardQueryParams } from './cardsApi'
 import s from './cards.module.css'
 
 export const CardsPage = () => {

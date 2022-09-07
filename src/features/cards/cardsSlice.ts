@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
   CardQueryParams,
-  cardsAPI,
+  cardsApi,
   CardType,
   CreateCardType,
   ResponseGetCardType,
   UpdateCardType,
-} from './cards-api'
+} from './cardsApi'
 import { ThunkType } from '../../app/store'
 import { AxiosError } from 'axios'
 import { handleNetworkError } from '../../common/utils/errorUtil'
@@ -48,7 +48,7 @@ export const { setCardsAC, clearCardsListAC } = packListSlice.actions
 export const getCardsThunk =
   (params: CardQueryParams): ThunkType =>
   (dispatch) => {
-    cardsAPI
+    cardsApi
       .getCards(params)
       .then((res) => {
         dispatch(setCardsAC({ cardsData: res.data }))
@@ -58,7 +58,7 @@ export const getCardsThunk =
 export const deleteCardThunk =
   (id: string, packId: string): ThunkType =>
   (dispatch, getState) => {
-    cardsAPI
+    cardsApi
       .deleteCard(id)
       .then((res) => {
         dispatch(getCardsThunk({ cardsPack_id: packId, ...getState().cards.queryParams }))
@@ -68,7 +68,7 @@ export const deleteCardThunk =
 export const updateCardThunk =
   (data: UpdateCardType, packId: string): ThunkType =>
   (dispatch, getState) => {
-    cardsAPI
+    cardsApi
       .updateCard(data)
       .then((res) => {
         dispatch(getCardsThunk({ cardsPack_id: packId, ...getState().cards.queryParams }))
@@ -78,7 +78,7 @@ export const updateCardThunk =
 export const addCardThunk =
   (data: CreateCardType): ThunkType =>
   (dispatch, getState) => {
-    cardsAPI
+    cardsApi
       .createCard(data)
       .then((res) => {
         dispatch(

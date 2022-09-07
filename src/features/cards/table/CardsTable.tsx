@@ -1,11 +1,11 @@
 import { Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material'
 import { useSelector } from 'react-redux'
-import { RootStateType } from '../../app/store'
-import { CardType } from './cards-api'
+import { RootStateType } from '../../../app/store'
+import { CardType } from '../cardsApi'
 import React from 'react'
 import { CardTableHead } from './cardTableHead'
 import { CrudTableOperations } from './crudTableOperations'
-import style from './cards.module.css'
+import style from '../cards.module.css'
 
 type ComponentType = {
   packId: string | undefined
