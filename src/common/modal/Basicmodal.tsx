@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 import { FC, ReactNode } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
-import style from './CustomModal.module.css'
+import style from './basicModal.module.css'
 
 const BoxStyle = {
   position: 'absolute' as 'absolute',
