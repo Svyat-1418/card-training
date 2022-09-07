@@ -9,14 +9,17 @@ import Typography from '@mui/material/Typography'
 import Paper from '@mui/material/Paper'
 
 import { EditableText } from '../../common/components/EditableText'
-import { useAppSelector } from '../../common/hooks'
+import { useAppDispatch, useAppSelector } from '../../common/hooks'
 import { Navigate, NavLink } from 'react-router-dom'
 import { Path } from '../../common/enums/Path'
 import { ArrowBack } from '@mui/icons-material'
 import Avatar from '@mui/material/Avatar'
 import { Stack } from '@mui/material'
+import { updateUserData } from '../../app/appSlice'
 
 export const PersonalInformation = () => {
+  const dispatch = useAppDispatch()
+
   const isLoggedIn = useAppSelector((state) => state.login.isLoggedIn)
   const publicCardPacksCount = useAppSelector((state) => state.app.userData.publicCardPacksCount)
   const userAvatar = useAppSelector((state) => state.app.userData.avatar)
@@ -42,7 +45,9 @@ export const PersonalInformation = () => {
                 <EditableText
                   text={userName}
                   variant={'h5'}
-                  newTextCallback={(newText: string) => {}}
+                  newTextCallback={(newText: string) => {
+                    dispatch(updateUserData({ name: newText }))
+                  }}
                 />
 
                 <Typography>Count public packs: {publicCardPacksCount}</Typography>

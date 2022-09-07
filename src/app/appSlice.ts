@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { authAPI, MeResponseType } from '../features/auth/authApi'
+import { authAPI, MeResponseType, UpdateMePayloadType } from '../features/auth/authApi'
 import { handleNetworkError } from '../common/utils/errorUtil'
 import { setIsLoggedInAC } from '../features/signIn/signIn-slice'
 
@@ -19,20 +19,23 @@ const appSlice = createSlice({
     setError: (state, action: PayloadAction<{ error: string | null }>) => {
       state.error = action.payload.error
     },
-    setIsInitialized: (state, action: PayloadAction<{ isInitialized: boolean }>) => {
-      state.isInitialized = action.payload.isInitialized
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(initializeApp.fulfilled, (state, action) => {
       if (action.payload) {
         state.userData = action.payload.userData
-        state.isInitialized = true
       }
       state.isInitialized = true
     })
+    builder.addCase(updateUserData.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.userData = { ...state.userData, ...action.payload.updatedUser }
+      }
+    })
   },
 })
+
+// action?.payload?.userData as MeResponseType
 
 export const initializeApp = createAsyncThunk('app/initializeApp', async (_, { dispatch }) => {
   try {
@@ -41,12 +44,23 @@ export const initializeApp = createAsyncThunk('app/initializeApp', async (_, { d
     return { userData: res.data }
   } catch (err: any) {
     handleNetworkError(err, dispatch)
-  } finally {
-    dispatch(setIsInitialized)
   }
 })
 
-export const { setStatus, setError, setIsInitialized } = appSlice.actions
+export const updateUserData = createAsyncThunk(
+  'app/updateUserData',
+  async (payload: UpdateMePayloadType, { dispatch }) => {
+    try {
+      const res = await authAPI.updateMe(payload)
+      debugger
+      return { updatedUser: res.data.updatedUser }
+    } catch (err: any) {
+      handleNetworkError(err, dispatch)
+    }
+  }
+)
+
+export const { setStatus, setError } = appSlice.actions
 export const appReducer = appSlice.reducer
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
