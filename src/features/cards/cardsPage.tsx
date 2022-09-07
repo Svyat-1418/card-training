@@ -1,13 +1,10 @@
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 import { CardsTable } from './table/CardsTable'
 import { useEffect } from 'react'
-import { useAppDispatch } from '../../common/hooks'
+import { useAppDispatch, useAppSelector } from '../../common/hooks'
 import { addCardThunk, clearCardsListAC, getCardsThunk } from './cardsSlice'
-import { useSelector } from 'react-redux'
-import { RootStateType } from '../../app/store'
 import { Button } from '@mui/material'
 import { NavLink, useParams } from 'react-router-dom'
-import { CardQueryParams } from './cardsApi'
 import style from './cards.module.css'
 
 export const CardsPage = () => {
@@ -15,9 +12,7 @@ export const CardsPage = () => {
   const params = useParams()
   const packId = params.id
 
-  const queryParams = useSelector<RootStateType, CardQueryParams>(
-    (state) => state.cards.queryParams
-  )
+  const queryParams = useAppSelector((state) => state.cards.queryParams)
 
   const onAddCardHandler = () => {
     dispatch(

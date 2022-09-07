@@ -1,18 +1,16 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material'
-import { useSelector } from 'react-redux'
-import { RootStateType } from '../../../app/store'
-import { CardType } from '../cardsApi'
 import React from 'react'
 import { CardTableHead } from './cardTableHead'
 import { CrudTableOperations } from './crudTableOperations'
 import { ConvertDate } from '../../../common/utils/convertDate'
+import { useAppSelector } from '../../../common/hooks'
 
 type ComponentType = {
   packId: string | undefined
 }
 
 export const CardsTable = (props: ComponentType) => {
-  const rows = useSelector<RootStateType, CardType[]>((state) => state.cards.cardsData.cards)
+  const rows = useAppSelector((state) => state.cards.cardsData.cards)
 
   return (
     <TableContainer component={Paper}>
