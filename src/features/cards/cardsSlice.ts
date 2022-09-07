@@ -29,7 +29,7 @@ const initialState = {
 console.log(initialState)
 
 export const packListSlice = createSlice({
-  name: 'packList',
+  name: 'cards',
   initialState,
   reducers: {
     setCardsAC(state, action: PayloadAction<{ cardsData: ResponseGetCardType }>) {
