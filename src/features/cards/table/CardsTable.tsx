@@ -1,11 +1,10 @@
-import { Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material'
+import { Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { RootStateType } from '../../../app/store'
 import { CardType } from '../cardsApi'
 import React from 'react'
 import { CardTableHead } from './cardTableHead'
 import { CrudTableOperations } from './crudTableOperations'
-import style from '../cards.module.css'
 import { ConvertDate } from '../../../common/utils/convertDate'
 
 type ComponentType = {
@@ -16,7 +15,7 @@ export const CardsTable = (props: ComponentType) => {
   const rows = useSelector<RootStateType, CardType[]>((state) => state.cards.cardsData.cards)
 
   return (
-    <TableContainer className={style.tableContainer}>
+    <TableContainer component={Paper}>
       <Table>
         <CardTableHead />
         <TableBody>

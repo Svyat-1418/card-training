@@ -2,13 +2,13 @@
     display: flex;
     flex-direction: column;
 
-    width: 70%;
+    max-width: 80%;
     margin-right: auto;
     margin-left: auto;
     padding-bottom: 15px;
 }
 .tableContainer{
-    width: 70%;
+    max-width: 80%;
     margin-right: auto;
     margin-left: auto;
 

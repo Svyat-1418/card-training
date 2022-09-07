@@ -24,7 +24,7 @@ export const PacksTable: React.FC<PacksTablePropsType> = ({ cardPacks }) => {
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table>
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
