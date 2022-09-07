@@ -1,12 +1,12 @@
 import { Button, Rating, TableCell } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
-import DeleteIcon from '@mui/icons-material/Delete'
 import React from 'react'
-import { deleteCardThunk, updateCardThunk } from '../cardsSlice'
+import { updateCardThunk } from '../cardsSlice'
 import { useAppDispatch } from '../../../common/hooks'
+import { DeleteCardModal } from '../modals/deleteCardModal'
 
 type ComponentType = {
-  packId: string | undefined
+  packId?: string
   cardId: string
   rating: number
 }
@@ -14,9 +14,6 @@ type ComponentType = {
 export const CrudTableOperations = (props: ComponentType) => {
   const dispatch = useAppDispatch()
 
-  const onDeleteClickIcon = () => {
-    props.packId && dispatch(deleteCardThunk(props.cardId, props.packId))
-  }
   const onEditCardClick = () => {
     props.packId &&
       dispatch(
@@ -40,9 +37,7 @@ export const CrudTableOperations = (props: ComponentType) => {
         <Button onClick={onEditCardClick}>
           <EditIcon fontSize={'small'} />
         </Button>
-        <Button onClick={onDeleteClickIcon}>
-          <DeleteIcon fontSize={'small'} />
-        </Button>
+        <DeleteCardModal cardId={props.cardId} packId={props.packId} />
       </div>
     </TableCell>
   )
