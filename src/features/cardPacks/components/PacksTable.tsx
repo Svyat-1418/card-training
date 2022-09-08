@@ -56,6 +56,7 @@ export const PacksTable: React.FC<PacksTablePropsType> = ({ cardPacks }) => {
                   currentName={pack.name}
                   userId={pack.user_id}
                   packId={pack._id}
+                  packName={pack.name}
                   setEditModeCb={setEditModeIdCb}
                 />
               </TableCell>

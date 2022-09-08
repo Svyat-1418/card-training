@@ -114,7 +114,7 @@ export const createCardPackThunk =
         dispatch(setStatus({ status: 'idle' }))
       })
   }
-export const deleteCardPackThunk =
+export const deleteCardPack =
   (_id: string): ThunkType =>
   (dispatch, getState) => {
     dispatch(setStatus({ status: 'loading' }))
