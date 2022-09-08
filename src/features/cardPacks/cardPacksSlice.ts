@@ -1,6 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ThunkType } from '../../app/store'
-import { cardPacksApi, CreateCardsPackPayloadType } from './cardPacksApi'
+import {
+  cardPacksApi,
+  CreateCardsPackPayloadType,
+  UpdateCardsPackPayloadType,
+} from './cardPacksApi'
 import { AxiosError, AxiosResponse } from 'axios'
 import { handleNetworkError } from '../../common/utils/errorUtil'
 import { setStatus } from '../../app/appSlice'
@@ -73,13 +77,13 @@ export const getCardPacksThunk =
         dispatch(setStatus({ status: 'idle' }))
       })
   }
-export const editCardPackThunk =
-  (packId: string, name: string): ThunkType =>
+export const updataCardPack =
+  (payload: UpdateCardsPackPayloadType): ThunkType =>
   (dispatch, getState) => {
     dispatch(setStatus({ status: 'loading' }))
     cardPacksApi
-      .editPack(packId, name)
-      .then((res) => {
+      .updateCardtPack(payload)
+      .then(() => {
         if (getState().cardPacks.privateMode) {
           dispatch(getCardPacksThunk(getState().app.userData._id))
         } else {

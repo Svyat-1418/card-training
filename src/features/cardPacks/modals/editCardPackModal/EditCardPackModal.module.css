@@ -1,0 +1,16 @@
+.buttonBlock{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding-top: 30px;
+}
+.textContainer{
+    display: flex;
+    flex-direction: column;
+
+    padding-top: 15px;
+}
+.textContainer span{
+    padding-top: 10px;
+}

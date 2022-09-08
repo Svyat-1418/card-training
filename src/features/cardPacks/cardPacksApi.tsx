@@ -12,10 +12,10 @@ export const cardPacksApi = {
     })
   },
   createCardPack(payload: CreateCardsPackPayloadType) {
-    return instance.post<CreateCardsPackResponseType>(`cards/pack`, payload)
+    return instance.post<CreateCardPackResponseType>(`cards/pack`, payload)
   },
-  editPack(packId: string, name: string) {
-    return instance.put(`cards/pack`, { cardsPack: { _id: packId, name } })
+  updateCardtPack(payload: UpdateCardsPackPayloadType) {
+    return instance.put<UpdateCardPackResponseType>(`cards/pack`, payload)
   },
   deletePack(id: string) {
     return instance.delete(`cards/pack`, {
@@ -45,6 +45,12 @@ export type CardPackType = {
   __v: number
 }
 
+export type CreateCardPackResponseType = {
+  newCardsPack: CardPackType
+  token: string
+  tokenDeathTime: string
+}
+
 export type CreateCardsPackPayloadType = {
   cardsPack: {
     name: string // "no Name" - если не отправить name будет таким
@@ -52,8 +58,16 @@ export type CreateCardsPackPayloadType = {
     private?: boolean
   }
 }
-export type CreateCardsPackResponseType = {
-  newCardsPack: CardPackType
+
+export type UpdateCardPackResponseType = {
+  updatedCardsPack: CardPackType
   token: string
   tokenDeathTime: string
+}
+export type UpdateCardsPackPayloadType = {
+  cardsPack: {
+    _id: string
+    name: string
+    private?: boolean
+  }
 }

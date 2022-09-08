@@ -6,7 +6,6 @@ import TableRow from '@mui/material/TableRow'
 import TableCell from '@mui/material/TableCell'
 import TableBody from '@mui/material/TableBody'
 import { CardPacksType } from '../cardPacksSlice'
-import { EditablePackName } from './EditablePackNameComponent'
 import { Actions } from './ActionsComponent'
 import TableContainer from '@mui/material/TableContainer'
 import { NavLink } from 'react-router-dom'
@@ -38,15 +37,7 @@ export const CardPackTable: React.FC<PacksTablePropsType> = ({ cardPacks }) => {
           {cardPacks.map((pack: CardPacksType) => (
             <TableRow key={pack._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell component="th" scope="row">
-                {pack._id === editModeId ? (
-                  <EditablePackName
-                    _id={pack._id}
-                    startName={pack.name}
-                    setEditModeCb={setEditModeIdCb}
-                  />
-                ) : (
-                  <NavLink to={`/card-page/${pack._id}`}>{pack.name.slice(0, 25)}</NavLink>
-                )}
+                <NavLink to={`/card-page/${pack._id}`}>{pack.name.slice(0, 25)}</NavLink>
               </TableCell>
               <TableCell align="right">{pack.cardsCount}</TableCell>
               <TableCell align="right">{ConvertDate(pack.updated)}</TableCell>
