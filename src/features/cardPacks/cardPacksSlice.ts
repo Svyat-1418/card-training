@@ -1,7 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ThunkType } from '../../app/store'
-import { cardPacksApi } from './cardPacksApi'
-import { AxiosResponse } from 'axios'
+import {
+  cardPacksApi,
+  CreateCardsPackPayloadType,
+  UpdateCardsPackPayloadType,
+} from './cardPacksApi'
+import { AxiosError, AxiosResponse } from 'axios'
 import { handleNetworkError } from '../../common/utils/errorUtil'
 import { setStatus } from '../../app/appSlice'
 
@@ -73,13 +77,13 @@ export const getCardPacksThunk =
         dispatch(setStatus({ status: 'idle' }))
       })
   }
-export const editCardPackThunk =
-  (packId: string, name: string): ThunkType =>
+export const updataCardPack =
+  (payload: UpdateCardsPackPayloadType): ThunkType =>
   (dispatch, getState) => {
     dispatch(setStatus({ status: 'loading' }))
     cardPacksApi
-      .editPack(packId, name)
-      .then((res) => {
+      .updateCardtPack(payload)
+      .then(() => {
         if (getState().cardPacks.privateMode) {
           dispatch(getCardPacksThunk(getState().app.userData._id))
         } else {
@@ -94,13 +98,14 @@ export const editCardPackThunk =
       })
   }
 
-export const createCardPackThunk =
-  (name: string): ThunkType =>
+export const createCardPack =
+  (payload: CreateCardsPackPayloadType): ThunkType =>
   (dispatch, getState) => {
     dispatch(setStatus({ status: 'loading' }))
     cardPacksApi
-      .createPack(name)
+      .createCardPack(payload)
       .then((res) => {
+        debugger
         if (getState().cardPacks.privateMode) {
           dispatch(getCardPacksThunk(getState().app.userData._id))
         } else {
@@ -114,20 +119,20 @@ export const createCardPackThunk =
         dispatch(setStatus({ status: 'idle' }))
       })
   }
-export const deleteCardPackThunk =
+export const deleteCardPack =
   (_id: string): ThunkType =>
   (dispatch, getState) => {
     dispatch(setStatus({ status: 'loading' }))
     cardPacksApi
       .deletePack(_id)
-      .then((res) => {
+      .then(() => {
         if (getState().cardPacks.privateMode) {
           dispatch(getCardPacksThunk(getState().app.userData._id))
         } else {
           dispatch(getCardPacksThunk())
         }
       })
-      .catch((error) => {
+      .catch((error: Error | AxiosError) => {
         handleNetworkError(error, dispatch)
       })
       .finally(() => {
