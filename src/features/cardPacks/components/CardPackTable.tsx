@@ -16,7 +16,7 @@ type PacksTablePropsType = {
   cardPacks: CardPacksType[]
 }
 
-export const PacksTable: React.FC<PacksTablePropsType> = ({ cardPacks }) => {
+export const CardPackTable: React.FC<PacksTablePropsType> = ({ cardPacks }) => {
   let [editModeId, setEditModeId] = useState<string>('')
   const setEditModeIdCb = (id: string) => {
     setEditModeId(id)

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ThunkType } from '../../app/store'
-import { cardPacksApi } from './cardPacksApi'
-import { AxiosResponse } from 'axios'
+import { cardPacksApi, CreateCardsPackPayloadType } from './cardPacksApi'
+import { AxiosError, AxiosResponse } from 'axios'
 import { handleNetworkError } from '../../common/utils/errorUtil'
 import { setStatus } from '../../app/appSlice'
 
@@ -94,13 +94,14 @@ export const editCardPackThunk =
       })
   }
 
-export const createCardPackThunk =
-  (name: string): ThunkType =>
+export const createCardPack =
+  (payload: CreateCardsPackPayloadType): ThunkType =>
   (dispatch, getState) => {
     dispatch(setStatus({ status: 'loading' }))
     cardPacksApi
-      .createPack(name)
+      .createCardPack(payload)
       .then((res) => {
+        debugger
         if (getState().cardPacks.privateMode) {
           dispatch(getCardPacksThunk(getState().app.userData._id))
         } else {
@@ -120,14 +121,14 @@ export const deleteCardPack =
     dispatch(setStatus({ status: 'loading' }))
     cardPacksApi
       .deletePack(_id)
-      .then((res) => {
+      .then(() => {
         if (getState().cardPacks.privateMode) {
           dispatch(getCardPacksThunk(getState().app.userData._id))
         } else {
           dispatch(getCardPacksThunk())
         }
       })
-      .catch((error) => {
+      .catch((error: Error | AxiosError) => {
         handleNetworkError(error, dispatch)
       })
       .finally(() => {

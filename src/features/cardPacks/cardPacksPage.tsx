@@ -2,10 +2,10 @@ import React, { useEffect } from 'react'
 import { CardPacksType, getCardPacksThunk } from './cardPacksSlice'
 import { useAppDispatch, useAppSelector } from '../../common/hooks'
 import style from './cardPacks.module.css'
-import { AddNewPack } from './components/AddNewPackComponent'
 import { MyCardsOnlySwitch } from './components/MyCardsOnlySwitch'
-import { PacksTable } from './components/PacksTable'
+import { CardPackTable } from './components/CardPackTable'
 import { PacksPagination } from './components/PacksPagination'
+import { AddNewCardPackModal } from './modals/addNewCardPackModal/AddNewCardPackModal'
 
 export const CardPacksPage = () => {
   let currentUserId = useAppSelector((state) => state.app.userData._id)
@@ -30,11 +30,12 @@ export const CardPacksPage = () => {
   return (
     <div className={style.pageContainer}>
       <div className={style.btnPanel}>
-        <AddNewPack />
         <MyCardsOnlySwitch privateMode={privateMode} />
+
+        <AddNewCardPackModal />
       </div>
       <div className={style.tableContainer}>
-        <PacksTable cardPacks={cardPacks} />
+        <CardPackTable cardPacks={cardPacks} />
         <div className={style.pagination}>
           <PacksPagination
             currentUserId={currentUserId}

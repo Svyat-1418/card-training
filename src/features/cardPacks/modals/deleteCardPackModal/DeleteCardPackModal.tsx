@@ -24,7 +24,7 @@ export const DeleteCardPackModal = ({ id, packName }: PropsType) => {
 
   const handleOpen = () => setOpen(true)
 
-  const handleClickDelete = (id: string) => () => {
+  const handleClickDelete = () => {
     dispatch(deleteCardPack(id))
     setOpen(false)
   }
@@ -46,7 +46,7 @@ export const DeleteCardPackModal = ({ id, packName }: PropsType) => {
           <Button variant={'contained'} onClick={handleClose}>
             Close
           </Button>
-          <Button variant={'contained'} color={'error'} onClick={handleClickDelete(id)}>
+          <Button variant={'contained'} color={'error'} onClick={handleClickDelete}>
             Delete
           </Button>
         </div>

@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import SchoolIcon from '@mui/icons-material/School'
 import { DeleteCardPackModal } from '../modals/deleteCardPackModal/DeleteCardPackModal'
+import { AddNewCardPackModal } from '../modals/addNewCardPackModal/AddNewCardPackModal'
 
 type ActionsPropsTypes = {
   setEditModeCb: (id: string) => void
@@ -39,15 +40,12 @@ export const Actions: React.FC<ActionsPropsTypes> = ({
       <Button disabled>
         <SchoolIcon fontSize={'small'} />
       </Button>
+
       <Button disabled={ifBtnDisabled} onClick={editOnClickHandler}>
         <EditIcon fontSize={'small'} />
       </Button>
 
       <DeleteCardPackModal id={packId} packName={packName} />
-
-      {/*<Button disabled={ifBtnDisabled} onClick={deleteOnClickHandler}>
-        <DeleteIcon fontSize={'small'} />
-      </Button>*/}
     </div>
   )
 }
