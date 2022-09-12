@@ -12,7 +12,7 @@ export const CardTableHead = () => {
 
   return (
     <TableHead>
-      <TableRow>
+      <TableRow style={{ backgroundColor: 'lightgray' }}>
         {columns.map((col) => {
           return (
             <TableCell align={'left'} key={col.headerName + Math.random()} width={col.width}>
