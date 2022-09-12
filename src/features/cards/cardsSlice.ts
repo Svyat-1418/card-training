@@ -38,12 +38,15 @@ export const packListSlice = createSlice({
     clearCardsListAC(state) {
       state.cardsData.cards = []
     },
+    addCardsQueryParamsAC(state, action: PayloadAction<{ queryParams: CardQueryParams }>) {
+      state.queryParams = action.payload.queryParams
+    },
   },
 })
 
 export const cardsReducer = packListSlice.reducer
 
-export const { setCardsAC, clearCardsListAC } = packListSlice.actions
+export const { setCardsAC, clearCardsListAC, addCardsQueryParamsAC } = packListSlice.actions
 
 export const getCardsThunk =
   (params: CardQueryParams): ThunkType =>

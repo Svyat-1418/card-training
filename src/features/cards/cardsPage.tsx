@@ -6,6 +6,7 @@ import { addCardThunk, clearCardsListAC, getCardsThunk } from './cardsSlice'
 import { Button } from '@mui/material'
 import { NavLink, useParams } from 'react-router-dom'
 import style from './cards.module.css'
+import { CardsQuestionSearch } from './CardsSearchComponent/CardsQuestionSearch'
 
 export const CardsPage = () => {
   const dispatch = useAppDispatch()
@@ -47,6 +48,7 @@ export const CardsPage = () => {
             </Button>
           )}
         </div>
+        <CardsQuestionSearch />
       </div>
       <div className={style.tableContainer}>
         <CardsTable packId={packId} isUserCard={isUserCard} />
