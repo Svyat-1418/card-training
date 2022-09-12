@@ -60,6 +60,7 @@ export const EditCardModal = ({ cardId, packId, question, answer }: PropsType) =
             variant={'standard'}
             defaultValue={question}
             onChange={onQuestionChangeHandler}
+            style={{ paddingBottom: '10px' }}
           />
           <TextField
             label={'Answer'}
