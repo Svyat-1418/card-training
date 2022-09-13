@@ -10,7 +10,7 @@ import { registrationReducer } from '../features/signUp/singnUp-slice'
 import { recoveryPasswordSlice } from '../features/recoveryPassword/recoveryPasswordSlice'
 import thunk from 'redux-thunk'
 import { appReducer } from './appSlice'
-import { cardPacksSlice } from '../features/cardPacks/cardPacksSlice'
+import { cardPacksReducer } from '../features/cardPacks/cardPacksSlice'
 import { cardsReducer } from '../features/cards/cardsSlice'
 
 const RootReducer = combineReducers({
@@ -18,7 +18,7 @@ const RootReducer = combineReducers({
   registration: registrationReducer,
   forgotPassword: recoveryPasswordSlice.reducer,
   app: appReducer,
-  cardPacks: cardPacksSlice.reducer,
+  cardPacks: cardPacksReducer,
   cards: cardsReducer,
 })
 
@@ -29,7 +29,7 @@ export const store = configureStore({
 
 export type RootStateType = ReturnType<typeof store.getState>
 export type DispatchType = ThunkDispatch<RootStateType, unknown, AnyAction>
-export type ThunkType<ReturnType = void> = ThunkAction<
+export type AppDispatchType<ReturnType = void> = ThunkAction<
   ReturnType,
   RootStateType,
   unknown,

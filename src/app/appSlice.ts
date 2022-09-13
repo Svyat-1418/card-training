@@ -35,8 +35,6 @@ const appSlice = createSlice({
   },
 })
 
-// action?.payload?.userData as MeResponseType
-
 export const initializeApp = createAsyncThunk('app/initializeApp', async (_, { dispatch }) => {
   try {
     const res = await authAPI.me()

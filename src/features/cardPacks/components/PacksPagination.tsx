@@ -2,17 +2,17 @@ import React, { useState } from 'react'
 import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
 import { useAppDispatch } from '../../../common/hooks'
-import { getCardPacksThunk } from '../cardPacksSlice'
+import { getCardPacks } from '../cardPacksSlice'
 
 type PaginationPropsType = {
   totalPages?: number
-  privateMode: boolean
+  isMyPacks: boolean
   currentUserId: string
 }
 
 export const PacksPagination: React.FC<PaginationPropsType> = ({
   totalPages,
-  privateMode,
+  isMyPacks,
   currentUserId,
 }) => {
   const [page, setPage] = useState(1)
@@ -20,10 +20,10 @@ export const PacksPagination: React.FC<PaginationPropsType> = ({
   let dispatch = useAppDispatch()
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value)
-    if (!privateMode) {
-      dispatch(getCardPacksThunk(undefined, value))
+    if (!isMyPacks) {
+      dispatch(getCardPacks())
     } else {
-      dispatch(getCardPacksThunk(currentUserId, value))
+      dispatch(getCardPacks())
     }
   }
 

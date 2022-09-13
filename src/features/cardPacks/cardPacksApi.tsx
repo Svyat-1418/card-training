@@ -1,28 +1,28 @@
 import { instance } from '../../common/config/apiConfig'
 
+// getPackList(user_id?: string, page?: number) {
+//   let pageCount = 5
+//   return instance.get<GetCardPacksResponseType>(`cards/pack`, {
+//     params: {
+//       pageCount,
+//       user_id,
+//       page,
+//     },
+
 export const cardPacksApi = {
-  getPackList(user_id?: string, page?: number) {
-    let pageCount = 5
-    return instance.get(`cards/pack`, {
-      params: {
-        pageCount,
-        user_id,
-        page,
-      },
+  getCardPacks(payload: CardPackQueryParamsType) {
+    return instance.get<GetCardPacksResponseType>(`cards/pack`, {
+      params: { ...payload },
     })
   },
-  createCardPack(payload: CreateCardsPackPayloadType) {
+  createCardPack(payload: CreateCardPackPayloadType) {
     return instance.post<CreateCardPackResponseType>(`cards/pack`, payload)
   },
-  updateCardtPack(payload: UpdateCardsPackPayloadType) {
+  updateCardPack(payload: UpdateCardPackPayloadType) {
     return instance.put<UpdateCardPackResponseType>(`cards/pack`, payload)
   },
   deletePack(id: string) {
-    return instance.delete(`cards/pack`, {
-      params: {
-        id,
-      },
-    })
+    return instance.delete(`cards/pack?id=${id}`)
   },
 }
 
@@ -44,6 +44,26 @@ export type CardPackType = {
   more_id: string
   __v: number
 }
+export type GetCardPacksResponseType = {
+  cardPacks: CardPackType[]
+
+  page: number
+  pageCount: number
+  cardPacksTotalCount: number
+  minCardsCount: number
+  maxCardsCount: number
+  token: string
+  tokenDeathTime: number
+}
+export type CardPackQueryParamsType = {
+  packName?: string
+  min?: number
+  max?: number
+  sortPacks?: string | '1cardsCount'
+  user_id?: string | null
+  page?: number
+  pageCount?: number
+}
 
 export type CreateCardPackResponseType = {
   newCardsPack: CardPackType
@@ -51,7 +71,7 @@ export type CreateCardPackResponseType = {
   tokenDeathTime: string
 }
 
-export type CreateCardsPackPayloadType = {
+export type CreateCardPackPayloadType = {
   cardsPack: {
     name: string // "no Name" - если не отправить name будет таким
     deckCover?: string
@@ -64,7 +84,7 @@ export type UpdateCardPackResponseType = {
   token: string
   tokenDeathTime: string
 }
-export type UpdateCardsPackPayloadType = {
+export type UpdateCardPackPayloadType = {
   cardsPack: {
     _id: string
     name: string

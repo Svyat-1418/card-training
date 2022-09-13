@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField'
 
 import { BasicModal } from '../../../../common/modal/Basicmodal'
 
-import { updataCardPack } from '../../cardPacksSlice'
+import { updateCardPack } from '../../cardPacksSlice'
 import { useAppDispatch } from '../../../../common/hooks'
 
 import styles from './EditCardPackModal.module.css'
@@ -38,7 +38,7 @@ export const EditCardPackModal = ({ id, currentName }: PropsType) => {
   }
 
   const handleClickSave = () => {
-    dispatch(updataCardPack({ cardsPack: { _id: id, name: newPackName, private: isPrivate } }))
+    dispatch(updateCardPack({ cardsPack: { _id: id, name: newPackName, private: isPrivate } }))
     setOpen(false)
   }
 

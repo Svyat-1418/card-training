@@ -1,36 +1,48 @@
-import React, { useEffect } from 'react'
-import { CardPacksType, getCardPacksThunk } from './cardPacksSlice'
+import React, { useEffect, useState } from 'react'
+import { changeQueryParamsValues, getCardPacks } from './cardPacksSlice'
 import { useAppDispatch, useAppSelector } from '../../common/hooks'
 import style from './cardPacks.module.css'
 import { MyCardsOnlySwitch } from './components/MyCardsOnlySwitch'
 import { CardPackTable } from './components/CardPackTable'
 import { PacksPagination } from './components/PacksPagination'
 import { AddNewCardPackModal } from './modals/addNewCardPackModal/AddNewCardPackModal'
+import { CardPackType } from './cardPacksApi'
 
 export const CardPacksPage = () => {
-  let currentUserId = useAppSelector((state) => state.app.userData._id)
-  let privateMode = useAppSelector((state) => state.cardPacks.privateMode)
-  let totalPacks = useAppSelector((state) => state.cardPacks.cardPacksInfo.cardPacksTotalCount)
-  let currentPagePacksCount = useAppSelector((state) => state.cardPacks.cardPacksInfo.pageCount)
+  const dispatch = useAppDispatch()
 
-  let cardPacks: CardPacksType[] = useAppSelector(
-    (state) => state.cardPacks.cardPacksInfo.cardPacks
+  const { packName, sortPacks, page, pageCount, min, max, user_id } = useAppSelector(
+    (state) => state.cardPacks.queryParamsValues
   )
+  const currentUserId = useAppSelector((state) => state.app.userData._id)
+  const totalPacks = useAppSelector((state) => state.cardPacks.aboutCardPacks.cardPacksTotalCount)
+  const currentPagePacksCount = useAppSelector((state) => state.cardPacks.aboutCardPacks.pageCount)
+  const cardPacks: CardPackType[] = useAppSelector((state) => state.cardPacks.cardPacks)
 
-  let dispatch = useAppDispatch()
+  const [isMyPacks, setIsMyPacks] = useState(false)
+
+  // useEffect(() => {
+  //   if (privateMode) {
+  //     dispatch(getCardPacksThunk(currentUserId))
+  //   } else {
+  //     dispatch(getCardPacksThunk())
+  //   }
+  // }, [privateMode])
 
   useEffect(() => {
-    if (privateMode) {
-      dispatch(getCardPacksThunk(currentUserId))
-    } else {
-      dispatch(getCardPacksThunk())
-    }
-  }, [privateMode])
+    dispatch(getCardPacks())
+  }, [page, pageCount, min, max, user_id, pageCount, sortPacks, packName])
+
+  useEffect(() => {
+    isMyPacks
+      ? dispatch(changeQueryParamsValues({ queryParamsValues: { user_id: currentUserId } }))
+      : dispatch(changeQueryParamsValues({ queryParamsValues: { user_id: '' } }))
+  }, [isMyPacks])
 
   return (
     <div className={style.pageContainer}>
       <div className={style.btnPanel}>
-        <MyCardsOnlySwitch privateMode={privateMode} />
+        <MyCardsOnlySwitch isMyPacks={isMyPacks} setIsMyPacks={setIsMyPacks} />
 
         <AddNewCardPackModal />
       </div>
@@ -39,7 +51,7 @@ export const CardPacksPage = () => {
         <div className={style.pagination}>
           <PacksPagination
             currentUserId={currentUserId}
-            privateMode={privateMode}
+            isMyPacks={isMyPacks}
             totalPages={Math.ceil(totalPacks / currentPagePacksCount)}
           />
         </div>

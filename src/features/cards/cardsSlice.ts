@@ -7,7 +7,7 @@ import {
   ResponseGetCardType,
   UpdateCardType,
 } from './cardsApi'
-import { ThunkType } from '../../app/store'
+import { AppDispatchType } from '../../app/store'
 import { AxiosError } from 'axios'
 import { handleNetworkError } from '../../common/utils/errorUtil'
 
@@ -46,7 +46,7 @@ export const cardsReducer = packListSlice.reducer
 export const { setCardsAC, clearCardsListAC } = packListSlice.actions
 
 export const getCardsThunk =
-  (params: CardQueryParams): ThunkType =>
+  (params: CardQueryParams): AppDispatchType =>
   (dispatch) => {
     cardsApi
       .getCards(params)
@@ -56,7 +56,7 @@ export const getCardsThunk =
       .catch((err: AxiosError<{ error: string }>) => {})
   }
 export const deleteCardThunk =
-  (id: string, packId: string): ThunkType =>
+  (id: string, packId: string): AppDispatchType =>
   (dispatch, getState) => {
     cardsApi
       .deleteCard(id)
@@ -66,7 +66,7 @@ export const deleteCardThunk =
       .catch((err: AxiosError<{ error: string }>) => handleNetworkError(err, dispatch))
   }
 export const updateCardThunk =
-  (data: UpdateCardType, packId: string): ThunkType =>
+  (data: UpdateCardType, packId: string): AppDispatchType =>
   (dispatch, getState) => {
     cardsApi
       .updateCard(data)
@@ -76,7 +76,7 @@ export const updateCardThunk =
       .catch((err: AxiosError<{ error: string }>) => handleNetworkError(err, dispatch))
   }
 export const addCardThunk =
-  (data: CreateCardType): ThunkType =>
+  (data: CreateCardType): AppDispatchType =>
   (dispatch, getState) => {
     cardsApi
       .createCard(data)

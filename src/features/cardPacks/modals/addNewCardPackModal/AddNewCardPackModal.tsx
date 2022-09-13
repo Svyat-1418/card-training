@@ -4,11 +4,11 @@ import Button from '@mui/material/Button'
 
 import { BasicModal } from '../../../../common/modal/Basicmodal'
 
-import { createCardPack } from '../../cardPacksSlice'
 import { useAppDispatch } from '../../../../common/hooks'
 
 import styles from './AddNewCardPackModal.module.css'
 import { Checkbox, TextField } from '@mui/material'
+import { createCardPack } from '../../cardPacksSlice'
 
 export const AddNewCardPackModal = () => {
   const dispatch = useAppDispatch()

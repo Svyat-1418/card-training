@@ -5,14 +5,14 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import TableCell from '@mui/material/TableCell'
 import TableBody from '@mui/material/TableBody'
-import { CardPacksType } from '../cardPacksSlice'
 import { Actions } from './ActionsComponent'
 import TableContainer from '@mui/material/TableContainer'
 import { NavLink } from 'react-router-dom'
 import { ConvertDate } from '../../../common/utils/convertDate'
+import { CardPackType } from '../cardPacksApi'
 
 type PacksTablePropsType = {
-  cardPacks: CardPacksType[]
+  cardPacks: CardPackType[]
 }
 
 export const CardPackTable: React.FC<PacksTablePropsType> = ({ cardPacks }) => {
@@ -34,7 +34,7 @@ export const CardPackTable: React.FC<PacksTablePropsType> = ({ cardPacks }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {cardPacks.map((pack: CardPacksType) => (
+          {cardPacks.map((pack: CardPackType) => (
             <TableRow key={pack._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell component="th" scope="row">
                 <NavLink to={`/card-page/${pack._id}`}>{pack.name.slice(0, 25)}</NavLink>

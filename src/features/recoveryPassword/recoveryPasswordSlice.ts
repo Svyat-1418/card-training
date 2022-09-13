@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { forgotPasswordApi } from './recoveryPasswordApi'
-import { ThunkType } from '../../app/store'
+import { AppDispatchType } from '../../app/store'
 import { AxiosResponse } from 'axios'
 
 export type sendEmailResponseType = {
@@ -58,7 +58,7 @@ export const {
 } = recoveryPasswordSlice.actions
 
 export const SendEmailThunk =
-  (email: string): ThunkType =>
+  (email: string): AppDispatchType =>
   (dispatch) => {
     dispatch(setRecoveryEmail(email))
     dispatch(setIsFetching(true))
@@ -75,7 +75,7 @@ export const SendEmailThunk =
   }
 
 export const setNewPasswordThunk =
-  (newPassword: string, token: string | undefined): ThunkType =>
+  (newPassword: string, token: string | undefined): AppDispatchType =>
   (dispatch) => {
     forgotPasswordApi
       .setNewPassword(newPassword, token)
