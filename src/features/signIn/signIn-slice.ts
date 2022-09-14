@@ -1,8 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { AnyAction, createSlice, PayloadAction, ThunkDispatch } from '@reduxjs/toolkit'
 import { Dispatch } from 'redux'
 import { loginAPI, LoginParamsType } from './signIn-api'
 import { handleNetworkError } from '../../common/utils/errorUtil'
 import { authAPI } from '../auth/authApi'
+import { initializeApp } from '../../app/appSlice'
 
 const initialState = {
   isLoggedIn: false,
@@ -22,18 +23,20 @@ export const loginReducer = slice.reducer
 
 export const { setIsLoggedInAC } = slice.actions
 
-export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch) => {
-  loginAPI
-    .login(data)
-    .then((res) => {
-      if (res.status === 200) {
-        dispatch(setIsLoggedInAC({ value: true }))
-      }
-    })
-    .catch((error) => {
-      handleNetworkError(error, dispatch)
-    })
-}
+export const loginTC =
+  (data: LoginParamsType) => (dispatch: ThunkDispatch<unknown, unknown, AnyAction>) => {
+    loginAPI
+      .login(data)
+      .then((res) => {
+        if (res.status === 200) {
+          dispatch(setIsLoggedInAC({ value: true }))
+          dispatch(initializeApp())
+        }
+      })
+      .catch((error) => {
+        handleNetworkError(error, dispatch)
+      })
+  }
 export const logoutTC = () => (dispatch: Dispatch) => {
   authAPI
     .logout()
