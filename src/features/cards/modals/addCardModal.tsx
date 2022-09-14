@@ -3,22 +3,18 @@ import { BasicModal } from '../../../common/modal/Basicmodal'
 import style from './modal.module.css'
 import React, { ChangeEvent, useState } from 'react'
 import { useAppDispatch } from '../../../common/hooks'
-import EditIcon from '@mui/icons-material/Edit'
-import { updateCardThunk } from '../cardsSlice'
+import { addCardThunk } from '../cardsSlice'
 
 type PropsType = {
-  cardId: string
   packId?: string
-  question: string
-  answer: string
 }
 
-export const EditCardModal = ({ cardId, packId, question, answer }: PropsType) => {
+export const AddCardModal = ({ packId }: PropsType) => {
   const dispatch = useAppDispatch()
 
   const [open, setOpen] = useState(false)
-  const [newQuestion, setQuestion] = useState(question)
-  const [newAnswer, setAnswer] = useState(answer)
+  const [newQuestion, setQuestion] = useState('')
+  const [newAnswer, setAnswer] = useState('')
 
   const handleClose = () => setOpen(false)
 
@@ -31,50 +27,36 @@ export const EditCardModal = ({ cardId, packId, question, answer }: PropsType) =
     setAnswer(e.currentTarget.value)
   }
 
-  const EditCardHandler = () => {
+  const addCardHandler = () => {
     setOpen(false)
-    packId &&
-      dispatch(
-        updateCardThunk(
-          {
-            card: {
-              _id: cardId,
-              question: newQuestion,
-              answer: newAnswer,
-            },
-          },
-          packId
-        )
-      )
+    dispatch(
+      addCardThunk({
+        card: { cardsPack_id: packId, question: newQuestion, answer: newAnswer },
+      })
+    )
   }
 
   return (
     <>
-      <Button onClick={handleOpen}>
-        <EditIcon fontSize={'small'} />
+      <Button variant="contained" onClick={handleOpen}>
+        add new card
       </Button>
       <BasicModal open={open} handleClose={handleClose} modalName={'Edit card'}>
         <div className={style.textContainer}>
           <TextField
             label={'Question'}
             variant={'standard'}
-            defaultValue={question}
             onChange={onQuestionChangeHandler}
             style={{ paddingBottom: '10px' }}
           />
-          <TextField
-            label={'Answer'}
-            variant={'standard'}
-            defaultValue={answer}
-            onChange={onAnswerChangeHandler}
-          />
+          <TextField label={'Answer'} variant={'standard'} onChange={onAnswerChangeHandler} />
         </div>
         <div className={style.buttonBlock}>
           <Button variant={'outlined'} onClick={handleClose}>
             Close
           </Button>
-          <Button variant={'contained'} onClick={EditCardHandler}>
-            Save
+          <Button variant={'contained'} onClick={addCardHandler}>
+            Add
           </Button>
         </div>
       </BasicModal>

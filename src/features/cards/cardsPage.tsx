@@ -2,11 +2,11 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 import { CardsTable } from './table/CardsTable'
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../common/hooks'
-import { addCardThunk, clearCardsListAC, getCardsThunk } from './cardsSlice'
-import { Button } from '@mui/material'
+import { clearCardsListAC, getCardsThunk } from './cardsSlice'
 import { NavLink, useParams } from 'react-router-dom'
 import style from './cards.module.css'
 import { CardsQuestionSearch } from './CardsSearchComponent/CardsQuestionSearch'
+import { AddCardModal } from './modals/addCardModal'
 
 export const CardsPage = () => {
   const dispatch = useAppDispatch()
@@ -17,14 +17,6 @@ export const CardsPage = () => {
   const queryParams = useAppSelector((state) => state.cards.queryParams)
   let currentUserId = useAppSelector((state) => state.app.userData._id)
   const isUserCard = currentUserId === userId
-
-  const onAddCardHandler = () => {
-    dispatch(
-      addCardThunk({
-        card: { cardsPack_id: packId, question: 'Some question', answer: 'answer text' },
-      })
-    )
-  }
 
   useEffect(() => {
     dispatch(getCardsThunk({ ...queryParams, cardsPack_id: packId }))
@@ -42,11 +34,7 @@ export const CardsPage = () => {
         </div>
         <div className={style.addCardContainer}>
           {isUserCard ? <h1>My pack</h1> : <h1>Friends pack</h1>}
-          {isUserCard && (
-            <Button variant="contained" onClick={onAddCardHandler}>
-              add new card
-            </Button>
-          )}
+          {isUserCard && <AddCardModal packId={packId} />}
         </div>
         <CardsQuestionSearch />
       </div>
