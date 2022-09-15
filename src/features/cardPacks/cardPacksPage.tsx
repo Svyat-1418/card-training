@@ -6,12 +6,15 @@ import { MyCardsOnlySwitch } from './components/MyCardsOnlySwitch'
 import { CardPackTable } from './components/CardPackTable'
 import { PacksPagination } from './components/PacksPagination'
 import { AddNewCardPackModal } from './modals/addNewCardPackModal/AddNewCardPackModal'
+import { Navigate } from 'react-router-dom'
+import { Path } from '../../common/enums/Path'
 
 export const CardPacksPage = () => {
   let currentUserId = useAppSelector((state) => state.app.userData._id)
   let privateMode = useAppSelector((state) => state.cardPacks.privateMode)
   let totalPacks = useAppSelector((state) => state.cardPacks.cardPacksInfo.cardPacksTotalCount)
   let currentPagePacksCount = useAppSelector((state) => state.cardPacks.cardPacksInfo.pageCount)
+  const isLoggedIn = useAppSelector((state) => state.login.isLoggedIn)
 
   let cardPacks: CardPacksType[] = useAppSelector(
     (state) => state.cardPacks.cardPacksInfo.cardPacks
@@ -26,6 +29,10 @@ export const CardPacksPage = () => {
       dispatch(getCardPacksThunk())
     }
   }, [privateMode])
+
+  if (!isLoggedIn) {
+    return <Navigate to={Path.SingIn} />
+  }
 
   return (
     <div className={style.pageContainer}>

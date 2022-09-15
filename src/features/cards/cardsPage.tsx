@@ -1,12 +1,13 @@
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 import { CardsTable } from './table/CardsTable'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../common/hooks'
 import { clearCardsListAC, getCardsThunk } from './cardsSlice'
-import { NavLink, useParams } from 'react-router-dom'
+import { Navigate, NavLink, useParams } from 'react-router-dom'
 import style from './cards.module.css'
 import { CardsQuestionSearch } from './CardsSearchComponent/CardsQuestionSearch'
 import { AddCardModal } from './modals/addCardModal'
+import { Path } from '../../common/enums/Path'
 
 export const CardsPage = () => {
   const dispatch = useAppDispatch()
@@ -16,12 +17,19 @@ export const CardsPage = () => {
 
   const queryParams = useAppSelector((state) => state.cards.queryParams)
   let currentUserId = useAppSelector((state) => state.app.userData._id)
+  const isLoggedIn = useAppSelector((state) => state.login.isLoggedIn)
+
   const isUserCard = currentUserId === userId
 
   useEffect(() => {
     dispatch(getCardsThunk({ ...queryParams, cardsPack_id: packId }))
     dispatch(clearCardsListAC())
   }, [queryParams])
+
+  if (!isLoggedIn) {
+    return <Navigate to={Path.SingIn} />
+  }
+
   return (
     <div>
       <div className={style.header}>
