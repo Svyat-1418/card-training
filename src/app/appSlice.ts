@@ -50,7 +50,6 @@ export const updateUserData = createAsyncThunk(
   async (payload: UpdateMePayloadType, { dispatch }) => {
     try {
       const res = await authAPI.updateMe(payload)
-      debugger
       return { updatedUser: res.data.updatedUser }
     } catch (err: any) {
       handleNetworkError(err, dispatch)

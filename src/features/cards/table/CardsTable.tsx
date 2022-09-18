@@ -1,4 +1,4 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material'
+import { Paper, Rating, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material'
 import React from 'react'
 import { CardTableHead } from './cardTableHead'
 import { CrudTableOperations } from './crudTableOperations'
@@ -6,7 +6,8 @@ import { ConvertDate } from '../../../common/utils/convertDate'
 import { useAppSelector } from '../../../common/hooks'
 
 type ComponentType = {
-  packId: string | undefined
+  packId?: string
+  isUserCard: boolean
 }
 
 export const CardsTable = (props: ComponentType) => {
@@ -28,7 +29,18 @@ export const CardsTable = (props: ComponentType) => {
                 </TableCell>
                 <TableCell>{row.answer}</TableCell>
                 <TableCell>{ConvertDate(row.updated)}</TableCell>
-                <CrudTableOperations packId={props.packId} cardId={row._id} rating={row.rating} />
+                <TableCell>
+                  <Rating value={row.rating} disabled />
+                </TableCell>
+                {props.isUserCard && (
+                  <CrudTableOperations
+                    packId={props.packId}
+                    cardId={row._id}
+                    rating={row.rating}
+                    answer={row.answer}
+                    question={row.question}
+                  />
+                )}
               </TableRow>
             )
           })}

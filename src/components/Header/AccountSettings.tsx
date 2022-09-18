@@ -31,7 +31,6 @@ export const AccountSettings = () => {
   const open = Boolean(anchorEl)
 
   const handleClickLogout = () => {
-    debugger
     dispatch(logoutTC())
   }
 
@@ -134,8 +133,8 @@ export const AccountSettings = () => {
           </NavLink>
         </MenuItem>
 
-        <MenuItem>
-          <IconButton onClick={handleClickLogout}>
+        <MenuItem onClick={handleClickLogout}>
+          <IconButton>
             <Logout fontSize="small" />
           </IconButton>
           Logout

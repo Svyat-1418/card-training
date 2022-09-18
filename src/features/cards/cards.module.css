@@ -5,11 +5,21 @@
     max-width: 80%;
     margin-right: auto;
     margin-left: auto;
-    padding-bottom: 15px;
+    padding-bottom: 25px;
 }
 .tableContainer{
     max-width: 80%;
     margin-right: auto;
     margin-left: auto;
 
+}
+.backContainer h2{
+    color: black;
+    text-decoration: none;
+}
+.addCardContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }

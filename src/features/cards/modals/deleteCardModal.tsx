@@ -4,7 +4,7 @@ import React from 'react'
 import { BasicModal } from '../../../common/modal/Basicmodal'
 import { deleteCardThunk } from '../cardsSlice'
 import { useAppDispatch } from '../../../common/hooks'
-import style from './deleteModal.module.css'
+import style from './modal.module.css'
 
 type PropsType = {
   cardId: string

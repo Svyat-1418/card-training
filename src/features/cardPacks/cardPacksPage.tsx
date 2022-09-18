@@ -6,6 +6,8 @@ import { MyCardsOnlySwitch } from './components/MyCardsOnlySwitch'
 import { CardPackTable } from './components/CardPackTable'
 import { PacksPagination } from './components/PacksPagination'
 import { AddNewCardPackModal } from './modals/addNewCardPackModal/AddNewCardPackModal'
+import { Navigate } from 'react-router-dom'
+import { Path } from '../../common/enums/Path'
 import { CardPackType } from './cardPacksApi'
 
 export const CardPacksPage = () => {
@@ -14,6 +16,7 @@ export const CardPacksPage = () => {
   const { packName, sortPacks, page, pageCount, min, max, user_id } = useAppSelector(
     (state) => state.cardPacks.queryParamsValues
   )
+  const isLoggedIn = useAppSelector((state) => state.login.isLoggedIn)
   const currentUserId = useAppSelector((state) => state.app.userData._id)
   const totalPacks = useAppSelector((state) => state.cardPacks.aboutCardPacks.cardPacksTotalCount)
   const currentPagePacksCount = useAppSelector((state) => state.cardPacks.aboutCardPacks.pageCount)
@@ -39,8 +42,15 @@ export const CardPacksPage = () => {
       : dispatch(changeQueryParamsValues({ queryParamsValues: { user_id: '' } }))
   }, [isMyPacks])
 
+  if (!isLoggedIn) {
+    return <Navigate to={Path.SingIn} />
+  }
+
   return (
     <div className={style.pageContainer}>
+      <div className={style.pageNameContainer}>
+        <h2>Packs list</h2>
+      </div>
       <div className={style.btnPanel}>
         <MyCardsOnlySwitch isMyPacks={isMyPacks} setIsMyPacks={setIsMyPacks} />
 

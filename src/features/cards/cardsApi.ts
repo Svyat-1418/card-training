@@ -49,7 +49,7 @@ export type ResponseGetCardType = {
 export type CardQueryParams = {
   cardAnswer?: string
   cardQuestion?: string
-  cardsPack_id?: string | undefined
+  cardsPack_id?: string
   min?: string
   max?: string
   sortCards?: string
