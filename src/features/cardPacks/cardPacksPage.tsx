@@ -24,14 +24,6 @@ export const CardPacksPage = () => {
 
   const [isMyPacks, setIsMyPacks] = useState(false)
 
-  // useEffect(() => {
-  //   if (privateMode) {
-  //     dispatch(getCardPacksThunk(currentUserId))
-  //   } else {
-  //     dispatch(getCardPacksThunk())
-  //   }
-  // }, [privateMode])
-
   useEffect(() => {
     dispatch(getCardPacks())
   }, [page, pageCount, min, max, user_id, pageCount, sortPacks, packName])

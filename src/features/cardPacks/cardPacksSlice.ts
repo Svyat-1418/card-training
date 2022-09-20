@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootStateType, AppDispatchType } from '../../app/store'
+import { RootStateType } from '../../app/store'
 import {
   cardPacksApi,
   CardPackType,
@@ -8,7 +8,6 @@ import {
   UpdateCardPackPayloadType,
   CreateCardPackPayloadType,
 } from './cardPacksApi'
-import { AxiosError, AxiosResponse } from 'axios'
 import { handleNetworkError } from '../../common/utils/errorUtil'
 import { setStatus } from '../../app/appSlice'
 
@@ -65,60 +64,66 @@ export const getCardPacks = createAsyncThunk<
   void,
   { state: RootStateType }
 >('cardPacks/getCardPacks', async (_, { dispatch, getState, rejectWithValue }) => {
-  debugger
   try {
     dispatch(setStatus({ status: 'loading' }))
-    const queryParamsValues = getState().cardPacks.queryParamsValues
-    const res: AxiosResponse<GetCardPacksResponseType> = await cardPacksApi.getCardPacks(
-      queryParamsValues
-    )
+
+    const res = await cardPacksApi.getCardPacks(getState().cardPacks.queryParamsValues)
+
     return res.data
   } catch (error: any) {
     handleNetworkError(error, dispatch)
+
     return rejectWithValue(error)
   } finally {
     dispatch(setStatus({ status: 'idle' }))
   }
 })
 
-export const createCardPack = createAsyncThunk<void, CreateCardPackPayloadType>(
-  'cardPacks/createCardPack',
-  async (payload, { dispatch }) => {
-    try {
-      dispatch(setStatus({ status: 'loading' }))
-      const res = await cardPacksApi.createCardPack(payload).then(() => {
-        dispatch(getCardPacks)
-      })
-    } catch (error: any) {
-      handleNetworkError(error, dispatch)
-    } finally {
-      dispatch(setStatus({ status: 'idle' }))
-    }
-  }
-)
+export const createCardPack = createAsyncThunk<
+  void,
+  CreateCardPackPayloadType,
+  { state: RootStateType }
+>('cardPacks/createCardPack', async (payload, { dispatch }) => {
+  try {
+    dispatch(setStatus({ status: 'loading' }))
 
-export const updateCardPack = createAsyncThunk<void, UpdateCardPackPayloadType>(
-  'cardPacks/updateCardPack',
-  async (payload, { dispatch }) => {
-    try {
-      dispatch(setStatus({ status: 'loading' }))
-      const res = await cardPacksApi.updateCardPack(payload)
-      await dispatch(getCardPacks)
-    } catch (error: any) {
-      handleNetworkError(error, dispatch)
-    } finally {
-      dispatch(setStatus({ status: 'idle' }))
-    }
-  }
-)
+    await cardPacksApi.createCardPack(payload)
 
-export const deleteCardPack = createAsyncThunk<void, string>(
+    dispatch(getCardPacks())
+  } catch (error: any) {
+    handleNetworkError(error, dispatch)
+  } finally {
+    dispatch(setStatus({ status: 'idle' }))
+  }
+})
+
+export const updateCardPack = createAsyncThunk<
+  void,
+  UpdateCardPackPayloadType,
+  { state: RootStateType }
+>('cardPacks/updateCardPack', async (payload, { dispatch }) => {
+  try {
+    dispatch(setStatus({ status: 'loading' }))
+
+    await cardPacksApi.updateCardPack(payload)
+
+    dispatch(getCardPacks())
+  } catch (error: any) {
+    handleNetworkError(error, dispatch)
+  } finally {
+    dispatch(setStatus({ status: 'idle' }))
+  }
+})
+
+export const deleteCardPack = createAsyncThunk<void, string, { state: RootStateType }>(
   'cardPacks/deleteCardPack',
   async (id, { dispatch }) => {
     try {
       dispatch(setStatus({ status: 'loading' }))
-      const res = await cardPacksApi.deletePack(id)
-      dispatch(getCardPacks)
+
+      await cardPacksApi.deletePack(id)
+
+      dispatch(getCardPacks())
     } catch (error: any) {
       handleNetworkError(error, dispatch)
     } finally {
@@ -129,83 +134,3 @@ export const deleteCardPack = createAsyncThunk<void, string>(
 
 export const { changeQueryParamsValues } = cardPacksSlice.actions
 export const cardPacksReducer = cardPacksSlice.reducer
-
-// export const getCardPacksThunk =
-// //   (userId?: string, page?: number): AppDispatchType =>
-// //   (dispatch) => {
-// //     dispatch(setStatus({ status: 'loading' }))
-// //     cardPacksApi
-// //       .getCardPacks(userId, page)
-// //       .then((res: AxiosResponse) => {
-// //         dispatch(setCardPacksList(res.data))
-// //       })
-// //       .catch((error) => {
-// //         handleNetworkError(error, dispatch)
-// //       })
-// //       .finally(() => {
-// //         dispatch(setStatus({ status: 'idle' }))
-// //       })
-// //   }
-
-// export const updataCardPack =
-//   (payload: UpdateCardsPackPayloadType): AppDispatchType =>
-//   (dispatch, getState) => {
-//     dispatch(setStatus({ status: 'loading' }))
-//     cardPacksApi
-//       .updateCardPack(payload)
-//       .then(() => {
-//         if (getState().cardPacks.privateMode) {
-//           dispatch(getCardPacksThunk(getState().app.userData._id))
-//         } else {
-//           dispatch(getCardPacksThunk())
-//         }
-//       })
-//       .catch((error) => {
-//         handleNetworkError(error, dispatch)
-//       })
-//       .finally(() => {
-//         dispatch(setStatus({ status: 'idle' }))
-//       })
-//   }
-//
-// export const createCardPack =
-//   (payload: CreateCardsPackPayloadType): AppDispatchType =>
-//   (dispatch, getState) => {
-//     dispatch(setStatus({ status: 'loading' }))
-//     cardPacksApi
-//       .createCardPack(payload)
-//       .then((res) => {
-//         debugger
-//         if (getState().cardPacks.privateMode) {
-//           dispatch(getCardPacksThunk(getState().app.userData._id))
-//         } else {
-//           dispatch(getCardPacksThunk())
-//         }
-//       })
-//       .catch((error) => {
-//         handleNetworkError(error, dispatch)
-//       })
-//       .finally(() => {
-//         dispatch(setStatus({ status: 'idle' }))
-//       })
-//   }
-// export const deleteCardPack =
-//   (_id: string): AppDispatchType =>
-//   (dispatch, getState) => {
-//     dispatch(setStatus({ status: 'loading' }))
-//     cardPacksApi
-//       .deletePack(_id)
-//       .then(() => {
-//         if (getState().cardPacks.privateMode) {
-//           dispatch(getCardPacksThunk(getState().app.userData._id))
-//         } else {
-//           dispatch(getCardPacksThunk())
-//         }
-//       })
-//       .catch((error: Error | AxiosError) => {
-//         handleNetworkError(error, dispatch)
-//       })
-//       .finally(() => {
-//         dispatch(setStatus({ status: 'idle' }))
-//       })
-//   }

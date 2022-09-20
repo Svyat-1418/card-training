@@ -38,7 +38,7 @@ export const DeleteCardPackModal = ({ id, packName }: PropsType) => {
       <BasicModal open={open} handleClose={handleClose} modalName={'Delete Pack'}>
         <div className={styles.textContainer}>
           <span>
-            `Do you really want to remove pack <strong>${packName}</strong>`?
+            Do you really want to remove pack <strong>{packName}</strong>?
           </span>
           <span>All cards from this pack will also be deleted.</span>
         </div>
