@@ -1,11 +1,15 @@
-import React, { useEffect } from 'react'
-import './App.css'
-import { Routing } from '../features/routing/Routing'
-import { useAppDispatch, useAppSelector } from '../common/hooks'
+import { useEffect } from 'react'
+
+import styles from './App.module.scss'
+
 import { initializeApp } from './appSlice'
-import { CircularProgress } from '@mui/material'
+
+import { useAppDispatch, useAppSelector } from '../common/hooks'
+
 import Box from '@mui/material/Box'
-import { ErrorSnackbar } from '../common/components/ErrorSnackbar'
+import CircularProgress from '@mui/material/CircularProgress'
+
+import { Routing } from '../features/routing/Routing'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -18,19 +22,8 @@ function App() {
 
   if (!isInitialized) {
     return (
-      <Box
-        sx={{
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          position: 'absolute',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <CircularProgress color={'primary'} size={100} thickness={3.6} />
+      <Box className={styles.initialized}>
+        <CircularProgress />
       </Box>
     )
   }
