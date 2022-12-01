@@ -19,7 +19,7 @@ import Password from '@mui/icons-material/Password'
 import { NavLink } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../common/hooks'
-import { Path } from '../../common/enums/Path'
+import { PATH } from '../../common/enums/path'
 import { logoutTC } from '../../features/signIn/signIn-slice'
 
 export const AccountSettings = () => {
@@ -97,7 +97,7 @@ export const AccountSettings = () => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem>
-          <NavLink to={Path.PersonalInformation}>
+          <NavLink to={PATH.PersonalInformation}>
             <ListItemIcon>
               <Avatar src={userAvatar} />
             </ListItemIcon>
@@ -106,7 +106,7 @@ export const AccountSettings = () => {
         </MenuItem>
 
         <MenuItem>
-          <NavLink to={Path.CardPacks}>
+          <NavLink to={PATH.CardPacks}>
             <ListItemIcon>
               <Layers />
             </ListItemIcon>
@@ -116,7 +116,7 @@ export const AccountSettings = () => {
         <Divider />
 
         <MenuItem>
-          <NavLink to={Path.SingUp}>
+          <NavLink to={PATH.SIGNUP}>
             <ListItemIcon>
               <PersonAdd fontSize="small" />
             </ListItemIcon>
@@ -125,7 +125,7 @@ export const AccountSettings = () => {
         </MenuItem>
 
         <MenuItem>
-          <NavLink to={Path.ForgotPassword}>
+          <NavLink to={PATH.FORGOTPASSWORD}>
             <ListItemIcon>
               <Password fontSize="small" />
             </ListItemIcon>

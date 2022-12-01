@@ -7,7 +7,7 @@ import { CardPackTable } from './components/CardPackTable'
 import { PacksPagination } from './components/PacksPagination'
 import { AddNewCardPackModal } from './modals/addNewCardPackModal/AddNewCardPackModal'
 import { Navigate } from 'react-router-dom'
-import { Path } from '../../common/enums/Path'
+import { PATH } from '../../common/enums/path'
 import { CardPackType } from './cardPacksApi'
 
 export const CardPacksPage = () => {
@@ -35,7 +35,7 @@ export const CardPacksPage = () => {
   }, [isMyPacks])
 
   if (!isLoggedIn) {
-    return <Navigate to={Path.SingIn} />
+    return <Navigate to={PATH.SIGNIN} />
   }
 
   return (

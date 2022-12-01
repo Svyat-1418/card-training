@@ -4,7 +4,7 @@ import { useFormik } from 'formik'
 import { Button, TextField } from '@mui/material'
 import FormGroup from '@mui/material/FormGroup'
 import { Navigate, NavLink } from 'react-router-dom'
-import { Path } from '../../common/enums/Path'
+import { PATH } from '../../common/enums/path'
 import { registerTC } from './singnUp-slice'
 import { useSelector } from 'react-redux'
 import { RootStateType } from '../../app/store'
@@ -53,7 +53,7 @@ export const SignUp = () => {
   })
 
   if (isRegistered) {
-    return <Navigate to={Path.SingIn} />
+    return <Navigate to={PATH.SIGNIN} />
   }
 
   return (
@@ -106,7 +106,7 @@ export const SignUp = () => {
               Sign Up
             </Button>
             <span>Already have an account?</span>
-            <NavLink to={Path.SingIn}>Sign in</NavLink>
+            <NavLink to={PATH.SIGNIN}>Sign in</NavLink>
           </FormGroup>
         </form>
       </div>

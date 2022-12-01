@@ -7,7 +7,7 @@ import { Navigate, NavLink, useParams } from 'react-router-dom'
 import style from './cards.module.css'
 import { CardsQuestionSearch } from './CardsSearchComponent/CardsQuestionSearch'
 import { AddCardModal } from './modals/addCardModal'
-import { Path } from '../../common/enums/Path'
+import { PATH } from '../../common/enums/path'
 
 export const CardsPage = () => {
   const dispatch = useAppDispatch()
@@ -27,7 +27,7 @@ export const CardsPage = () => {
   }, [queryParams])
 
   if (!isLoggedIn) {
-    return <Navigate to={Path.SingIn} />
+    return <Navigate to={PATH.SIGNIN} />
   }
 
   return (

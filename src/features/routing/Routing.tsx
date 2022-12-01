@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { Path } from '../../common/enums/Path'
+import { PATH } from '../../common/enums/path'
 import { SignUp } from '../signUp/SignUp'
 import { SignIn } from '../signIn/SignIn'
 import { PersonalInformation } from '../personalInformation/PersonalInformation'
@@ -17,19 +17,19 @@ export const Routing = () => {
     <Routes>
       <Route path={'/'} element={<Layout />}>
         <Route index element={<PersonalInformation />} />
-        <Route path={`${Path.SingUp}`} element={<SignUp />} />
-        <Route path={Path.SingIn} element={<SignIn />} />
-        <Route path={Path.PersonalInformation} element={<PersonalInformation />} />
-        <Route path={Path.ForgotPassword} element={<ForgotPassword />} />
-        <Route path={Path.CheckEmail} element={<CheckEmail />} />
-        <Route path={Path.CreateNewPassword} element={<CreateNewPassword />} />
-        <Route path={Path.CardPacks} element={<CardPacksPage />} />
-        <Route path={Path.CardPage} element={<CardsPage />} />
+        <Route path={`${PATH.SIGNUP}`} element={<SignUp />} />
+        <Route path={PATH.SIGNIN} element={<SignIn />} />
+        <Route path={PATH.PersonalInformation} element={<PersonalInformation />} />
+        <Route path={PATH.FORGOTPASSWORD} element={<ForgotPassword />} />
+        <Route path={PATH.CheckEmail} element={<CheckEmail />} />
+        <Route path={PATH.CreateNewPassword} element={<CreateNewPassword />} />
+        <Route path={PATH.CardPacks} element={<CardPacksPage />} />
+        <Route path={PATH.CardPage} element={<CardsPage />} />
         <Route
-          path={Path.Page404}
+          path={PATH.Page404}
           element={<Typography variant={'h3'}>PAGE NOT FOUND :-(</Typography>}
         />
-        <Route path={'*'} element={<Navigate to={Path.Page404} />} />
+        <Route path={'*'} element={<Navigate to={PATH.Page404} />} />
       </Route>
     </Routes>
   )

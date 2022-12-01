@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks'
 import { setNewPasswordThunk } from '../recoveryPasswordSlice'
-import { Path } from '../../../common/enums/Path'
+import { PATH } from '../../../common/enums/path'
 import styles from '../RecoveryPassword.module.css'
 import { Button, LinearProgress, TextField } from '@mui/material'
 
@@ -58,7 +58,7 @@ export const CreateNewPassword = () => {
         change password
       </Button>
       {newPassword !== repeatNewPassword && <div>passwords doesnt match</div>}
-      {isNewPasswordAccepted && <Navigate to={Path.PersonalInformation} />}
+      {isNewPasswordAccepted && <Navigate to={PATH.PersonalInformation} />}
     </div>
   )
 }

@@ -11,7 +11,7 @@ import Paper from '@mui/material/Paper'
 import { EditableText } from '../../common/components/EditableText'
 import { useAppDispatch, useAppSelector } from '../../common/hooks'
 import { Navigate, NavLink } from 'react-router-dom'
-import { Path } from '../../common/enums/Path'
+import { PATH } from '../../common/enums/path'
 import { ArrowBack } from '@mui/icons-material'
 import Avatar from '@mui/material/Avatar'
 import { Stack } from '@mui/material'
@@ -26,7 +26,7 @@ export const PersonalInformation = () => {
   const userName = useAppSelector((state) => state.app.userData.name)
 
   if (!isLoggedIn) {
-    return <Navigate to={Path.SingIn} />
+    return <Navigate to={PATH.SIGNIN} />
   }
 
   return (
@@ -52,7 +52,7 @@ export const PersonalInformation = () => {
 
                 <Typography>Count public packs: {publicCardPacksCount}</Typography>
 
-                <NavLink to={Path.CardPacks}>
+                <NavLink to={PATH.CardPacks}>
                   <IconButton>
                     <ArrowBack />
                     Back to Pack List

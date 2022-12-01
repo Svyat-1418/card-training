@@ -1,33 +1,29 @@
 import React from 'react'
 
-import AppBar from '@mui/material/AppBar'
-import Container from '@mui/material/Container'
-import LinearProgress from '@mui/material/LinearProgress'
-import Toolbar from '@mui/material/Toolbar'
+import AppBar from '@mui/material/AppBar/AppBar'
+import Toolbar from '@mui/material/Toolbar/Toolbar'
 import Typography from '@mui/material/Typography'
+import {NavLink} from 'react-router-dom'
 
-import style from './Header.module.css'
-import { UserInfo } from './UserInfo'
-import { AccountSettings } from './AccountSettings'
-import { useAppSelector } from '../../common/hooks'
+import {HeaderAvatar} from './HeaderAvatar/HeaderAvatar'
+
+import styles from 'common/components/Header/Header.module.scss'
+
+
+import {PATH} from '../../common/enums/path'
+import {useAppSelector} from '../../common/hooks'
 
 export const Header = () => {
-  const status = useAppSelector((state) => state.app.status)
+  const isLoggedIn = useAppSelector(getIsLoggedIn)
 
   return (
-    <>
-      <AppBar>
-        <Container>
-          <Toolbar className={style.toolbar}>
-            <UserInfo />
-
-            <Typography variant={'h4'}>Card Training</Typography>
-
-            <AccountSettings />
-          </Toolbar>
-        </Container>
-        {status === 'loading' && <LinearProgress color={'success'} />}
-      </AppBar>
-    </>
+    <AppBar position="static" className={styles.main}>
+      <Toolbar className={styles.toolbar}>
+        <NavLink to={PATH.PACKS}>
+          <Typography
+        </NavLink>
+        {!isLoggedIn && <HeaderAvatar/>}
+      </Toolbar>
+    </AppBar>
   )
 }

@@ -2,7 +2,7 @@ import React, { ChangeEvent, KeyboardEventHandler, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../common/hooks'
 import { SendEmailThunk } from '../recoveryPasswordSlice'
-import { Path } from '../../../common/enums/Path'
+import { PATH } from '../../../common/enums/path'
 import { Button, LinearProgress, TextField } from '@mui/material'
 import styles from '../RecoveryPassword.module.css'
 
@@ -59,7 +59,7 @@ export const ForgotPassword = () => {
       </Button>
 
       <p className={styles.errorText}>{errorMessage}</p>
-      {isEmailSendSuccess && <Navigate to={Path.CheckEmail} />}
+      {isEmailSendSuccess && <Navigate to={PATH.CheckEmail} />}
     </div>
   )
 }
