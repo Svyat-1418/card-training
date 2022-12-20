@@ -1,0 +1,35 @@
+{
+  "tabWidth": 2,
+  "useTabs": true,
+  "printWidth": 90,
+  "singleQuote": true,
+  "endOfLine": "auto",
+  "trailingComma": "es5",
+  "semi": false,
+
+  "importOrder": [
+    "<THIRD_PARTY_MODULES>",
+
+    "^@/ui/(.*)$",
+    "^@/components/(.*)$",
+    "^@/layout/(.*)$",
+    "^@/pages/(.*)$",
+
+    "^@/shared/(.*)$",
+    "^@/assets/(.*)$",
+    "^@/hooks/(.*)$",
+    "^@/utils/(.*)$",
+
+    "^@/store/(.*)$",
+
+    "^@/api/(.*)$",
+
+    "^../(.*)$",
+    "^./(.*)$",
+
+    "(.scss)$",
+    "(.css)$"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}
